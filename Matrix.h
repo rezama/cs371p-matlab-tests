@@ -49,9 +49,12 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix<bool> operator == (const Matrix&, const Matrix&) {
+        friend Matrix<bool> operator == (const Matrix&, const Matrix&) 
+        {
             // <your code>
-            return true;}
+            
+            return true;
+        }
 
         // -----------
         // operator !=
@@ -60,9 +63,23 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix<bool> operator != (const Matrix& lhs, const Matrix& rhs) {
+        friend Matrix<bool> operator != (const Matrix& lhs, const Matrix& rhs) 
+        {
             // <your code>
-            return true;}
+            if (lhs->m.size() == rhs->m.size() && lhs->m[0].size() == rhs->m[0].size())
+            {
+                int r = lhs->m.size();
+                int c = lhs->m[0].size();
+
+                for (int i = 0; i < r; i++)
+                    for (int j = 0; j < c; j++)
+                        if (lhs->m[i][j] != rhs->m[i][j])
+                            return false;
+                return true;
+
+            }
+            return false;
+        }
 
         // ----------
         // operator <
@@ -182,9 +199,21 @@ class Matrix {
         /**
          * <your documentation>
          */
-        Matrix (size_type r = 0, size_type c = 0, const T& v = T()) {
+        Matrix (size_type r = 0, size_type c = 0, const T& v = T()) 
+        {
             // <your code>
-            assert(valid());}
+            container_type m;
+
+
+/*
+            for (int i = 0; i < r; i++)
+                m[i].resize(c);
+
+            std::vector< std::vector<T> > test (r);
+            test[0].resize(c);
+*/
+            assert(valid());
+        }
 
         // Default copy, destructor, and copy assignment
         // Matrix  (const Matrix<T>&);
