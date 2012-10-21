@@ -605,7 +605,7 @@ class MyRLAgent(AgentBrain):
             return sorted_neighbors
             
         else:
-            print "ERROR! TOO FEW NEIGHBORS FOUND"
+            print "ERROR! TOO FEW NEIGHBORS FOUND" #should never happen
         
     def value_approximation(self,observations, action):
         row_of_approx = self.to_row_col(observations[0])
@@ -614,6 +614,7 @@ class MyRLAgent(AgentBrain):
         nearest_neighbors = self.get_neighbors(row_of_approx, col_of_approx, observations)
         print "Nearest neighbors: " + str(nearest_neighbors)
         
+        self.sorted_neighbors = nearest_neighbors
         """
         should_be_removed = []
         if len(sorted_neighbors)>2:
