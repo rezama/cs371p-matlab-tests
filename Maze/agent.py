@@ -61,165 +61,6 @@ class RandomAgent(AgentBrain):
         print  "Final reward: %f, cumulative: %f" % (reward[0], self.fitness[0])
         return True
 
-class CustomRLAgent(AgentBrain):
-    """
-    Write your custom reinforcement learning agent here!
-    """
-    def __init__(self, gamma, alpha, epsilon):
-        """
-        Constructor that is called from CustomRLRobot.xml
-        Parameters:
-        @param gamma reward discount factor (between 0 and 1)
-        @param alpha learning rate (between 0 and 1)
-        @param epsilon parameter for the epsilon-greedy policy (between 0 and 1)
-        """
-        AgentBrain.__init__(self) # initialize the superclass
-        self.gamma = gamma
-        self.alpha = alpha
-        self.epsilon = epsilon
-        """
-        Our Q-function table. Maps from a tuple of observations (state) to 
-        another map of actions to Q-values. To look up a Q-value, call the predict method.
-        """
-        self.Q = {} # our Q-function table
-        print 
-    
-    def __str__(self):
-        return self.__class__.__name__ + \
-            ' with gamma: %g, alpha: %g, epsilon: %g' \
-            % (gamma, alpha, epsilon)
-    
-    def initialize(self, init_info):
-        """
-        Create a new agent using the init_info sent by the environment
-        """
-        self.action_info = init_info.actions
-        self.sensor_info = init_info.sensors
-        return True
-    
-    def predict(self, observations, action):
-        """
-        Look up the Q-value for the given state (observations), action pair.
-        """
-        o = tuple([x for x in observations])
-        if o not in self.Q:
-            return 0
-        else:
-            return self.Q[o][action]
-    
-    def update(self, observations, action, new_value):
-        """
-        Update the Q-function table with the new value for the (state, action) pair
-        and update the blocks drawing.
-        """
-        o = tuple([x for x in observations])
-        actions = self.get_possible_actions(observations)
-        if o not in self.Q:
-            self.Q[o] = [0 for a in actions]
-        self.Q[o][action] = new_value
-        self.draw_q(o)
-    
-    def draw_q(self, o):
-        e = get_environment()
-        if hasattr(e, 'draw_q'):
-            e.draw_q(o, self.Q)
-
-    def get_possible_actions(self, observations):
-        """
-        Get the possible actions that can be taken given the state (observations)
-        """
-        aMin = self.action_info.min(0)
-        aMax = self.action_info.max(0)
-        actions = range(int(aMin), int(aMax+1))
-        return actions
-        
-    def get_max_action(self, observations):
-        """
-        get the action that is currently estimated to produce the highest Q
-        """
-        actions = self.get_possible_actions(observations)
-        max_action = actions[0]
-        max_value = self.predict(observations, max_action)
-        for a in actions[1:]:
-            value = self.predict(observations, a)
-            if value > max_value:
-                max_value = value
-                max_action = a
-        return (max_action, max_value)
-
-    def get_epsilon_greedy(self, observations, max_action = None, max_value = None):
-        """
-        get the epsilon-greedy action
-        """
-        actions = self.get_possible_actions(observations)
-        if random.random() < self.epsilon: # epsilon of the time, act randomly
-            return random.choice(actions)
-        elif max_action is not None and max_value is not None:
-            # we already know the max action
-            return max_action
-        else:
-            # we need to get the max action
-            (max_action, max_value) = self.get_max_action(observations)
-            return max_action
-    
-    def start(self, time, observations):
-        """
-        Called to figure out the first action given the first observations
-        @param time current time
-        @param observations a DoubleVector of observations for the agent (use len() and [])
-        """
-        self.previous_observations = observations
-        self.previous_action = self.get_epsilon_greedy(observations)
-        return self.previous_action
-
-    def act(self, time, observations, reward):
-        """
-        return an action given the reward for the previous action and the new observations
-        @param time current time
-        @param observations a DoubleVector of observations for the agent (use len() and [])
-        @param the reward for the agent
-        """
-        # get the reward from the previous action
-        r = reward[0]
-        
-        # get the updated epsilon, in case the slider was changed by the user
-        self.epsilon = get_environment().epsilon
-        
-        # get the old Q value
-        Q_old = self.predict(self.previous_observations, self.previous_action)
-        
-        # get the max expected value for our possible actions
-        (max_action, max_value) = self.get_max_action(observations)
-        
-        # update the Q value
-        self.update( \
-            self.previous_observations, \
-            self.previous_action, \
-            Q_old + self.alpha * (r + self.gamma * max_value - Q_old) )
-        
-        # select the action to take
-        action = self.get_epsilon_greedy(observations, max_action, max_value)
-        self.previous_observations = observations
-        self.previous_action = action
-        return action
-
-    def end(self, time, reward):
-        """
-        receive the reward for the last observation
-        """
-        # get the reward from the last action
-        r = reward[0]
-        o = self.previous_observations
-        a = self.previous_action
-
-        # get the updated epsilon, in case the slider was changed by the user
-        self.epsilon = get_environment().epsilon
-
-        # Update the Q value
-        Q_old = self.predict(o, a)
-        q = self.update(o, a, Q_old + self.alpha * (r - Q_old) )
-        return True
-
 class SearchAgent(AgentBrain):
     """ Base class for maze search agents """
 
@@ -659,9 +500,6 @@ class MoveForwardAndStopAgent(AgentBrain):
         
         
 class MyRLAgent(AgentBrain):
-    """
-    Write your custom reinforcement learning agent here!
-    """
     
     def __init__(self, gamma, alpha, epsilon):
         """
@@ -672,7 +510,7 @@ class MyRLAgent(AgentBrain):
         @param epsilon parameter for the epsilon-greedy policy (between 0 and 1)
         """
         AgentBrain.__init__(self) # initialize the superclass
-        self.method_to_use = 3
+        self.method_to_use = 3  # 1 = pure tabular, 2 = tiling, 3 = nearest neighbors
         self.gamma = gamma
         self.alpha = alpha
         self.epsilon = epsilon
@@ -701,36 +539,82 @@ class MyRLAgent(AgentBrain):
         return True
         
     def to_XYCord(self,row_or_col):
-    """
-    Converts from row/col number to corresponding X/Y coord
-    ie:/ (0,0) --> (20,20)
-    """
+        """
+        Converts from row/col number to corresponding X/Y coord
+        ie:/ (0,0) --> (20,20)
+        """
         return 20+(row_or_col*20)
     
     def to_row_col(self,observation):
-    """
-    Converts from X/Y coord to corresponding row/col number
-    ie:/ (20,20) --> (0,0)
-    """
-        return (int)((observation-10)/20)
+        """
+        Converts from X/Y coord to corresponding row/col number
+        ie:/ (20,20) --> (0,0)
+        """
+        return (int)((observation+10)/20)
     
-    def value_approximation(self,observations, action):
-        row_of_approximator = self.to_row_col(observations[0])
-        col_of_approximator = self.to_row_col(observations[1])
+    def get_neighbors(self, row, col, observations):
+        """
+        Finds and returns up to 3 nearest neighbors for a given position
+        Note: row and col expect row/col tile numbers, not XY coords
+        
+        Prioritizes directly adjacent (1 move to reach) then diagonals (2 moves to reach)
+        """
+        diag = []
+        nondiag = []
         neighbors = []
-        #neighbors.append((row_of_approximator,col_of_approximator)) 
-        for num in range(-1,2):
-            for num2 in range(-1,2):
-                new_row = row_of_approximator+num;
-                new_col = col_of_approximator+num2;
-                print "NEW ROW: "+str(new_row)+" NEW COL: "+str(new_col)
+        
+        #find neighboring tiles
+        for r in range(-1,1):
+            for c in range(-1,1):
+                new_row = row+r;
+                new_col = col+c;
+                #print "NEW ROW: "+str(new_row)+" NEW COL: "+str(new_col)
                 if new_row>=0 and new_row<8 and new_col>=0 and new_col<8: #valid 
-                    if not ((row_of_approximator,col_of_approximator), (row_of_approximator+num,col_of_approximator+num2)) in get_environment().maze.walls: 
-                        neighbors.append((new_row,new_col)) #valid and no wall
-        #go back and check to make sure neighbors are reachable meaning there are no walls in the way
-        print "neighbors-------: "+str(neighbors)                 
-        sorted_neighbors = sorted(neighbors, key=lambda c: self.distance(c,observations)) #should give 2 or more?
-        print "sorted neighbors-------: "+str(sorted_neighbors)
+                        diff = abs((new_row-row) + (new_col-col))
+                        neighbor = (new_row,new_col)
+                        if diff < 2:
+                            #check for walls
+                            if not ((((row,col), (r,c)) in get_environment().maze.walls) or (((r,c), (row,col)) in get_environment().maze.walls)): 
+                                nondiag.append(neighbor)
+                        else:
+                            diag.append(neighbor)
+        
+        print "Valid nondiag found for " + str((row,col)) + ": " + str(nondiag)
+        neighbors = nondiag
+        
+        #examine diagonals only if not enough directly adjacent neighbors
+        if len(neighbors) < 3:
+            #check if diagonals can be reached
+            for (r,c) in diag:
+                x_offset = r-row
+                y_offset = c-col
+                
+                if not (((row+x_offset, col) in nondiag) or ((row, col+y_offset) in nondiag)):
+                    diag.remove(r,c)
+            for (r,c) in diag:
+                neighbors.append((r,c))
+        
+        print "Unsorted neighbors: " + str(neighbors)
+        
+        sorted_neighbors = sorted(neighbors, key=lambda c: self.distance(c,observations))
+        
+        if len(sorted_neighbors) > 2:
+            return sorted_neighbors[0:3]
+            
+        elif len(sorted_neighbors) == 2:
+            return sorted_neighbors
+            
+        else:
+            print "ERROR! TOO FEW NEIGHBORS FOUND"
+        
+    def value_approximation(self,observations, action):
+        row_of_approx = self.to_row_col(observations[0])
+        col_of_approx = self.to_row_col(observations[1])
+        
+        nearest_neighbors = self.get_neighbors(row_of_approx, col_of_approx, observations)
+        print "Nearest neighbors: " + str(nearest_neighbors)
+        
+        """
         should_be_removed = []
         if len(sorted_neighbors)>2:
             index = 0
@@ -749,39 +633,40 @@ class MyRLAgent(AgentBrain):
                     sorted_neighbors.remove(x)
             print "filtered neighbors------"+ str(sorted_neighbors)
             self.sorted_neighbors = sorted_neighbors
+        """
         
-        if len(sorted_neighbors)>2: #using 3 closest neighbors
-            distance_A = self.distance(sorted_neighbors[0],observations)
-            distance_B = self.distance(sorted_neighbors[1],observations)
-            distance_C = self.distance(sorted_neighbors[2],observations)
+        if len(nearest_neighbors)>2: #using 3 closest neighbors
+            distance_A = self.distance(nearest_neighbors[0],observations)
+            distance_B = self.distance(nearest_neighbors[1],observations)
+            distance_C = self.distance(nearest_neighbors[2],observations)
             sum_distances = distance_A+distance_B+distance_C
             
             weight_A = 1-(distance_A/sum_distances)
-            print "wight A: "+str(weight_A)
+            print "weight A: "+str(weight_A)
             weight_B = 1-(distance_B/sum_distances)
-            print "wight B: "+str(weight_B)
+            print "weight B: "+str(weight_B)
             weight_C = 1-(distance_C/sum_distances)
-            print "wight C: "+str(weight_C)
+            print "weight C: "+str(weight_C)
             
-            value_A = self.value_from_tuple(sorted_neighbors[0],action)
+            value_A = self.value_from_tuple(nearest_neighbors[0],action)
             print "value A: "+str(value_A)
-            value_B = self.value_from_tuple(sorted_neighbors[1],action)
-            print "Value B: "+str(value_B)
-            value_C = self.value_from_tuple(sorted_neighbors[2],action)
+            value_B = self.value_from_tuple(nearest_neighbors[1],action)
+            print "value B: "+str(value_B)
+            value_C = self.value_from_tuple(nearest_neighbors[2],action)
             print "value C: "+str(value_C)
             self.weights = [weight_A,weight_B,weight_C]
             return value_A*weight_A+value_B*weight_B+value_C*weight_C
         
         else: #using 2 closest neighbors
-            distance_A = self.distance(sorted_neighbors[0],observations)
-            distance_B = self.distance(sorted_neighbors[1],observations)
+            distance_A = self.distance(nearest_neighbors[0],observations)
+            distance_B = self.distance(nearest_neighbors[1],observations)
             sum_distances = distance_A+distance_B
             
             weight_A = 1-(distance_A/sum_distances)
             weight_B = 1-(distance_B/sum_distances)
             
-            value_A = self.value_from_tuple(sorted_neighbors[0],action)
-            value_B = self.value_from_tuple(sorted_neighbors[1],action)
+            value_A = self.value_from_tuple(nearest_neighbors[0],action)
+            value_B = self.value_from_tuple(nearest_neighbors[1],action)
             
             self.weights = [weight_A,weight_B]
             return value_A*weight_A+value_B*weight_B
@@ -796,9 +681,9 @@ class MyRLAgent(AgentBrain):
         return 1-(distance/sum_distances)
     
     def distance(self, (row,col), observations):
-    """
-    Calculates distance between a point and center of 8x8 square
-    """
+        """
+        Calculates distance between a point and center of 8x8 square
+        """
         approximatorXCord = self.to_XYCord(row)
         approximatorYCord = self.to_XYCord(col)
         return pow(pow(abs(approximatorXCord-observations[0]),2)+pow(abs(approximatorYCord-observations[1]),2),0.5)
