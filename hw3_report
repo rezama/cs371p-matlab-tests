@@ -1,0 +1,22 @@
+Lydia Shen          LS24858
+Moises Hermosillo   MH34623
+
+Build Instructions
+------------------
+Copy agent.py over the one found by default in the Maze folder. Run the program using ./OpenNERO.
+
+
+Switching between Modes
+-----------------------
+To switch between pure tabular, tiling, and nearest neighbors, modify the self.method_to_use variable found in the initializer for AgentBrain.
+
+method_to_use values correspond to the different modes as follows:
+
+1 = pure tabular
+2 = tiling
+3 = nearest neighbors
+
+
+Tiling Implementation
+---------------------
+
