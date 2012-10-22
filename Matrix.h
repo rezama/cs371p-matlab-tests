@@ -49,11 +49,21 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix<bool> operator == (const Matrix&, const Matrix&) 
+        friend Matrix<bool> operator == (const Matrix& lhs, const Matrix& rhs) 
         {
             // <your code>
-            
-            return true;
+            Matrix<bool> dummy;
+            if (lhs.size() == 0 && rhs.size() == 0)
+                return dummy;
+            Matrix<bool> result(lhs.size(), lhs[0].size(), true);
+            for (size_type i = 0; i < lhs.size(); i++)
+                for (size_type j = 0; j < lhs[0].size(); j++)
+                {
+                    if (lhs[i][j] != rhs[i][j])
+                        result[i][j] = false;
+                }
+
+            return result;
         }
 
         // -----------
@@ -65,20 +75,20 @@ class Matrix {
          */
         friend Matrix<bool> operator != (const Matrix& lhs, const Matrix& rhs) 
         {
+
             // <your code>
-            if (lhs->m.size() == rhs->m.size() && lhs->m[0].size() == rhs->m[0].size())
-            {
-                int r = lhs->m.size();
-                int c = lhs->m[0].size();
+            Matrix<bool> dummy;
+            if (lhs.size() == 0 && rhs.size() == 0)
+                return dummy;
+            Matrix<bool> result(lhs.size(), lhs[0].size(), true);
+            for (size_type i = 0; i < lhs.size(); i++)
+                for (size_type j = 0; j < lhs[0].size(); j++)
+                {
+                    if (lhs[i][j] == rhs[i][j])
+                        result[i][j] = false;
+                }
 
-                for (int i = 0; i < r; i++)
-                    for (int j = 0; j < c; j++)
-                        if (lhs->m[i][j] != rhs->m[i][j])
-                            return false;
-                return true;
-
-            }
-            return false;
+            return result;
         }
 
         // ----------
@@ -88,9 +98,22 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix<bool> operator < (const Matrix& lhs, const Matrix& rhs) {
+        friend Matrix<bool> operator < (const Matrix& lhs, const Matrix& rhs) 
+        {
             // <your code>
-            return false;}
+            Matrix<bool> dummy;
+            if (lhs.size() == 0 && rhs.size() == 0)
+                return dummy;
+            Matrix<bool> result(lhs.size(), lhs[0].size(), false);
+            for (size_type i = 0; i < lhs.size(); i++)
+                for (size_type j = 0; j < lhs[0].size(); j++)
+                {
+                    if (lhs[i][j] < rhs[i][j])
+                        result[i][j] = true;
+                }
+
+            return result;
+        }
 
         // -----------
         // operator <=
@@ -132,8 +155,10 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix operator + (Matrix lhs, const T& rhs) {
-            return lhs += rhs;}
+        friend Matrix operator + (Matrix lhs, const T& rhs) 
+        {
+            return lhs += rhs;
+        }
 
         /**
          * <your documentation>
@@ -199,26 +224,27 @@ class Matrix {
         /**
          * <your documentation>
          */
-        Matrix (size_type r = 0, size_type c = 0, const T& v = T()) 
+        Matrix (size_type r = 0, size_type c = 0, const T& v = T())
         {
             // <your code>
-            container_type m;
+            _m.resize(r);
 
+            for (size_type i = 0; i < r; i++)
+            {
+                _m[i].resize(c);
+                for (size_type j = 0; j < c; j++)
+                {
+                    _m[i][j] = v;
+                }
 
-/*
-            for (int i = 0; i < r; i++)
-                m[i].resize(c);
-
-            std::vector< std::vector<T> > test (r);
-            test[0].resize(c);
-*/
+            }
             assert(valid());
         }
 
         // Default copy, destructor, and copy assignment
-        // Matrix  (const Matrix<T>&);
-        // ~Matrix ();
-        // Matrix& operator = (const Matrix&);
+        //Matrix  (const Matrix<T>&);
+        //~Matrix ();
+        //Matrix& operator = (const Matrix&);
 
         // -----------
         // operator []
@@ -227,17 +253,25 @@ class Matrix {
         /**
          * <your documentation>
          */
-        reference operator [] (size_type i) {
+        reference operator [] (size_type i) 
+        {
             // <your code>
+            return _m[i];
+
+
+
             // dummy is just to be able to compile the skeleton, remove it
-            static value_type dummy(1);
-            return dummy;}
+            //static value_type dummy(1);
+            //return dummy;
+        }
 
         /**
          * <your documentation>
          */
-        const_reference operator [] (size_type i) const {
-            return (*const_cast<Matrix*>(this))[i];}
+        const_reference operator [] (size_type i) const 
+        {
+            return (*const_cast<Matrix*>(this))[i];
+        }
 
         // -----------
         // operator +=
@@ -246,16 +280,36 @@ class Matrix {
         /**
          * <your documentation>
          */
-        Matrix& operator += (const T& rhs) {
+        Matrix& operator += (const T& rhs) 
+        {
             // <your code>
-            return *this;}
+            if (size() == 0)
+                return *this;
+
+            for (size_type i = 0; i < _m.size(); i++)
+                for (size_type j = 0; j < _m[0].size(); j++)
+                {
+                        _m[i][j] += rhs;
+                }
+            return *this;
+        }
 
         /**
          * <your documentation>
          */
-        Matrix& operator += (const Matrix& rhs) {
+        Matrix& operator += (const Matrix& rhs) 
+        {
             // <your code>
-            return *this;}
+            if (size() == 0 && rhs.size() == 0)
+                return *this;
+
+            for (size_type i = 0; i < rhs.size(); i++)
+                for (size_type j = 0; j < rhs[0].size(); j++)
+                {
+                        _m[i][j] += rhs[i][j];
+                }
+            return *this;
+        }
 
         // -----------
         // operator -=
@@ -264,16 +318,36 @@ class Matrix {
         /**
          * <your documentation>
          */
-        Matrix& operator -= (const T& rhs) {
+        Matrix& operator -= (const T& rhs) 
+        {
             // <your code>
-            return *this;}
+            if (size() == 0)
+                return *this;
+
+            for (size_type i = 0; i < _m.size(); i++)
+                for (size_type j = 0; j < _m[0].size(); j++)
+                {
+                        _m[i][j] -= rhs;
+                }
+            return *this;
+        }
 
         /**
          * <your documentation>
          */
-        Matrix& operator -= (const Matrix& rhs) {
+        Matrix& operator -= (const Matrix& rhs) 
+        {
             // <your code>
-            return *this;}
+            if (size() == 0 && rhs.size() == 0)
+                return *this;
+
+            for (size_type i = 0; i < rhs.size(); i++)
+                for (size_type j = 0; j < rhs[0].size(); j++)
+                {
+                        _m[i][j] -= rhs[i][j];
+                }
+            return *this;
+        }
 
         // -----------
         // operator *=
@@ -282,16 +356,41 @@ class Matrix {
         /**
          * <your documentation>
          */
-        Matrix& operator *= (const T& rhs) {
+        Matrix& operator *= (const T& rhs) 
+        {
             // <your code>
-            return *this;}
+            if (size() == 0)
+                return *this;
+
+            for (size_type i = 0; i < _m.size(); i++)
+                for (size_type j = 0; j < _m[0].size(); j++)
+                {
+                        _m[i][j] *= rhs;
+                }
+            return *this;
+        }
 
         /**
          * <your documentation>
          */
-        Matrix& operator *= (const Matrix& rhs) {
+        Matrix& operator *= (const Matrix& rhs) 
+        {
             // <your code>
-            return *this;}
+            if (size() == 0 && rhs.size() == 0)
+                return *this;
+
+
+            for (size_type i = 0; i < _m.size(); i++)
+            {
+                _m[i].resize(rhs[0].size());
+                for (size_type j = 0; j < rhs[0].size(); j++)
+                {
+                        _m[i][j] *= rhs[i][j];
+                }
+            }
+
+            return *this;;
+        }
 
         // --
         // eq
@@ -300,9 +399,23 @@ class Matrix {
         /**
          * <your documentation>
          */
-        bool eq (const Matrix&) const {
+        bool eq (const Matrix& mat) const 
+        {
             // <your code>
-            return true;}
+            if(size() == 0 && mat.size() == 0)
+                return true;
+            else if(size() != mat.size() || _m[0].size() != mat[0].size())
+                return false;
+            else
+            {
+                for (size_type i = 0; i < mat.size(); i++)
+                    for(size_type j = 0; j < mat[0].size(); j++)
+                        if (_m[i][j] != mat[i][j])
+                            return false;
+            }
+            
+            return true;
+        }
 
         // -----
         // begin
@@ -343,7 +456,11 @@ class Matrix {
         /**
          * <your documentation>
          */
-        size_type size () const {
-            return _m.size();}};
+        size_type size () const 
+        {
+            return _m.size();
+        }
+
+};
 
 #endif // Matrix_h

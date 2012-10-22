@@ -36,25 +36,66 @@ struct TestMatrix : CppUnit::TestFixture {
         Matrix<int> t(2, 3, 4);
         CPPUNIT_ASSERT(x.size() == 0);}
 
+    // -----------------
+    // test_constructor2
+    // -----------------
+
+    void test_constructor2 () {
+        Matrix<int> x;
+        Matrix<double> y(2);
+        Matrix<int> z(2, 3);
+        Matrix<int> t(2, 3, 4);
+        CPPUNIT_ASSERT(y.size() == 2);}
+
+
+
+
+
     // ----------
     // test_index
     // ----------
 
     void test_index () {
-        const Matrix<int> x;
+        const Matrix<int> x(1, 1);
         CPPUNIT_ASSERT(x[0][0] == 0);}
+
+
+    void test_index2 () {
+        const Matrix<int> x(3, 3, 100);
+        CPPUNIT_ASSERT(x[0][0] == 100);}
+
+
 
     // -----------
     // test_equals
     // -----------
 
+    void test_equals_default () {
+        Matrix<int>  z;
+        Matrix<int>  t;
+        CPPUNIT_ASSERT(z.eq(t));
+    }
+
+
     void test_equals () {
-        Matrix<int>  x;
-        Matrix<int>  y;
+        Matrix<int>  x(5,5,1);
+        Matrix<int>  y(5,5,1);
         Matrix<bool> z;
-        Matrix<bool> t;
+        Matrix<bool> t(5,5,1);
         z = (x == y);
-        CPPUNIT_ASSERT(z.eq(t));}
+        CPPUNIT_ASSERT(z.eq(t));
+        t[4][4] = 0;
+        CPPUNIT_ASSERT(!z.eq(t));
+    }
+
+    void test_equals2 () {
+        Matrix<int>  z(3, 3, 4);
+        Matrix<int>  t(3, 3, 4);
+        CPPUNIT_ASSERT(z.eq(t));
+        z[0][0] = 2;
+        CPPUNIT_ASSERT(!z.eq(t));}
+
+
 
     // --------------
     // test_less_than
@@ -65,8 +106,25 @@ struct TestMatrix : CppUnit::TestFixture {
         Matrix<int>  y;
         Matrix<bool> z;
         Matrix<bool> t;
-        z = (x == y);
+        z = (x < y);
         CPPUNIT_ASSERT(z.eq(t));}
+
+
+    void test_less_than2 () {
+        Matrix<int>  x(2, 3);
+        Matrix<int>  y(2, 3);
+        Matrix<bool> z;
+        Matrix<bool> t(2, 3, 0);
+        z = (x < y);
+        CPPUNIT_ASSERT(z.eq(t));
+        x[0][0] = -5;
+        t[0][0] = 1;
+        z = (x < y);
+        CPPUNIT_ASSERT(z.eq(t));
+     }
+
+
+//--------------------------------------------------------------------
 
     // ---------
     // test_plus
@@ -81,6 +139,16 @@ struct TestMatrix : CppUnit::TestFixture {
         x += y;
         CPPUNIT_ASSERT(x.eq(z));}
 
+
+    void test_plus2 () {
+        Matrix<int> x(4, 4, 5);
+        Matrix<int> y(4, 4, 10);
+        Matrix<int> z = x + y;
+        Matrix<int> w(4, 4, 15);
+        CPPUNIT_ASSERT(w.eq(z));}
+
+
+
     // ----------
     // test_minus
     // ----------
@@ -94,6 +162,16 @@ struct TestMatrix : CppUnit::TestFixture {
         x -= y;
         CPPUNIT_ASSERT(x.eq(z));}
 
+
+    void test_minus2 () {
+        Matrix<int> x(4, 4, 6);
+        Matrix<int> y(4, 4, 10);
+        y -= x;
+        Matrix<int> w(4, 4, 4);
+        CPPUNIT_ASSERT(w.eq(y));}
+
+
+
     // ---------------
     // test_multiplies
     // ---------------
@@ -106,6 +184,14 @@ struct TestMatrix : CppUnit::TestFixture {
         CPPUNIT_ASSERT(x.eq(z));
         x *= y;
         CPPUNIT_ASSERT(x.eq(z));}
+
+    void test_multiplies2 () {
+        Matrix<int> x(4, 2, 2);
+        Matrix<int> y(2, 5, 3);
+        Matrix<int> z(4, 5, 12);
+        x *= y;
+        CPPUNIT_ASSERT(x.eq(z));}
+
 
     // -------------
     // test_iterator
@@ -127,20 +213,45 @@ struct TestMatrix : CppUnit::TestFixture {
         Matrix<int>::const_iterator e = x.end();
         CPPUNIT_ASSERT(b == e);}
 
+    // -----------
+    // test_not_equals1
+    // -----------
+
+    void test_not_equals1 () {
+        Matrix<int>  x;
+		Matrix<int>  y;
+		Matrix<bool> z;
+		Matrix<bool> t;
+		z = (x != y);
+
+		CPPUNIT_ASSERT(z.eq(t));
+    }
+
     // -----
     // suite
     // -----
 
     CPPUNIT_TEST_SUITE(TestMatrix);
+
     CPPUNIT_TEST(test_constructor);
+    CPPUNIT_TEST(test_constructor2);
     CPPUNIT_TEST(test_index);
+    CPPUNIT_TEST(test_index2);
+    CPPUNIT_TEST(test_equals_default);
     CPPUNIT_TEST(test_equals);
+    CPPUNIT_TEST(test_equals2);
     CPPUNIT_TEST(test_less_than);
+    CPPUNIT_TEST(test_less_than2);
     CPPUNIT_TEST(test_plus);
+    CPPUNIT_TEST(test_plus2);
     CPPUNIT_TEST(test_minus);
+    CPPUNIT_TEST(test_minus2);
     CPPUNIT_TEST(test_multiplies);
+    CPPUNIT_TEST(test_multiplies2);/*
     CPPUNIT_TEST(test_iterator);
     CPPUNIT_TEST(test_const_iterator);
+    CPPUNIT_TEST(test_not_equals1);*/
+
     CPPUNIT_TEST_SUITE_END();};
 
 // ----
