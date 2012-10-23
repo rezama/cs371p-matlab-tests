@@ -1,83 +1,28 @@
-==13750== Memcheck, a memory error detector
-==13750== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
-==13750== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
-==13750== Command: TestMatrix.app
-==13750== 
+==1402== Memcheck, a memory error detector
+==1402== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==1402== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==1402== Command: TestMatrix.app
+==1402== 
 TestMatrix.c++
-==13750== Invalid read of size 8
-==13750==    at 0x408938: std::vector<int, std::allocator<int> >::operator[](unsigned long) const (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x409D15: Matrix<int>::operator*=(Matrix<int> const&) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x406B1C: TestMatrix::test_multiplies2() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4137AD: CppUnit::TestCaller<TestMatrix>::runTest() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4E558E9: CppUnit::TestCaseMethodFunctor::operator()() const (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E48E33: CppUnit::DefaultProtector::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E51E66: CppUnit::ProtectorChain::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5C593: CppUnit::TestResult::protect(CppUnit::Functor const&, CppUnit::Test*, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55687: CppUnit::TestCase::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55DC2: CppUnit::TestComposite::doRunChildTests(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55CE5: CppUnit::TestComposite::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5C1B9: CppUnit::TestResult::runTest(CppUnit::Test*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==  Address 0x5de0600 is 0 bytes after a block of size 48 alloc'd
-==13750==    at 0x4C292CB: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==13750==    by 0x40F14F: __gnu_cxx::new_allocator<std::vector<int, std::allocator<int> > >::allocate(unsigned long, void const*) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x40C322: std::_Vector_base<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_allocate(unsigned long) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x40CAE6: std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_fill_insert(__gnu_cxx::__normal_iterator<std::vector<int, std::allocator<int> >*, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > >, unsigned long, std::vector<int, std::allocator<int> > const&) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x40B5E1: std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::insert(__gnu_cxx::__normal_iterator<std::vector<int, std::allocator<int> >*, std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > > >, unsigned long, std::vector<int, std::allocator<int> > const&) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x40A160: std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::resize(unsigned long, std::vector<int, std::allocator<int> >) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x40858F: Matrix<int>::Matrix(unsigned long, unsigned long, int const&) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x406ADF: TestMatrix::test_multiplies2() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4137AD: CppUnit::TestCaller<TestMatrix>::runTest() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4E558E9: CppUnit::TestCaseMethodFunctor::operator()() const (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E48E33: CppUnit::DefaultProtector::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E51E66: CppUnit::ProtectorChain::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750== 
-==13750== Invalid read of size 4
-==13750==    at 0x409D16: Matrix<int>::operator*=(Matrix<int> const&) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x406B1C: TestMatrix::test_multiplies2() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4137AD: CppUnit::TestCaller<TestMatrix>::runTest() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4E558E9: CppUnit::TestCaseMethodFunctor::operator()() const (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E48E33: CppUnit::DefaultProtector::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E51E66: CppUnit::ProtectorChain::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5C593: CppUnit::TestResult::protect(CppUnit::Functor const&, CppUnit::Test*, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55687: CppUnit::TestCase::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55DC2: CppUnit::TestComposite::doRunChildTests(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55CE5: CppUnit::TestComposite::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5C1B9: CppUnit::TestResult::runTest(CppUnit::Test*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5E5E2: CppUnit::TestRunner::run(CppUnit::TestResult&, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
-==13750== 
-==13750== 
-==13750== Process terminating with default action of signal 11 (SIGSEGV)
-==13750==  Access not within mapped region at address 0x0
-==13750==    at 0x409D16: Matrix<int>::operator*=(Matrix<int> const&) (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x406B1C: TestMatrix::test_multiplies2() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4137AD: CppUnit::TestCaller<TestMatrix>::runTest() (in /v/filer4b/v38q001/fugaku/Ubuntu One/CS371P/Matlab/TestMatrix.app)
-==13750==    by 0x4E558E9: CppUnit::TestCaseMethodFunctor::operator()() const (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E48E33: CppUnit::DefaultProtector::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E51E66: CppUnit::ProtectorChain::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5C593: CppUnit::TestResult::protect(CppUnit::Functor const&, CppUnit::Test*, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55687: CppUnit::TestCase::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55DC2: CppUnit::TestComposite::doRunChildTests(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E55CE5: CppUnit::TestComposite::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5C1B9: CppUnit::TestResult::runTest(CppUnit::Test*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==    by 0x4E5E5E2: CppUnit::TestRunner::run(CppUnit::TestResult&, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==13750==  If you believe this happened as a result of a stack
-==13750==  overflow in your program's main thread (unlikely but
-==13750==  possible), you can try to increase the size of the
-==13750==  main thread stack using the --main-stacksize= flag.
-==13750==  The main thread stack size used in this run was 8388608.
-==13750== 
-==13750== HEAP SUMMARY:
-==13750==     in use at exit: 129,495 bytes in 91 blocks
-==13750==   total heap usage: 554 allocs, 463 frees, 177,788 bytes allocated
-==13750== 
-==13750== LEAK SUMMARY:
-==13750==    definitely lost: 0 bytes in 0 blocks
-==13750==    indirectly lost: 0 bytes in 0 blocks
-==13750==      possibly lost: 1,075 bytes in 18 blocks
-==13750==    still reachable: 128,420 bytes in 73 blocks
-==13750==         suppressed: 0 bytes in 0 blocks
-==13750== Rerun with --leak-check=full to see details of leaked memory
-==13750== 
-==13750== For counts of detected and suppressed errors, rerun with: -v
-==13750== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 4 from 4)
+....................
+
+
+OK (20 tests)
+
+
+Done.
+==1402== 
+==1402== HEAP SUMMARY:
+==1402==     in use at exit: 122,880 bytes in 6 blocks
+==1402==   total heap usage: 713 allocs, 707 frees, 195,859 bytes allocated
+==1402== 
+==1402== LEAK SUMMARY:
+==1402==    definitely lost: 0 bytes in 0 blocks
+==1402==    indirectly lost: 0 bytes in 0 blocks
+==1402==      possibly lost: 0 bytes in 0 blocks
+==1402==    still reachable: 122,880 bytes in 6 blocks
+==1402==         suppressed: 0 bytes in 0 blocks
+==1402== Rerun with --leak-check=full to see details of leaked memory
+==1402== 
+==1402== For counts of detected and suppressed errors, rerun with: -v
+==1402== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

@@ -379,17 +379,25 @@ class Matrix {
             if (size() == 0 && rhs.size() == 0)
                 return *this;
 
-
+            Matrix<T> result(_m.size(), rhs[0].size());
             for (size_type i = 0; i < _m.size(); i++)
             {
-                _m[i].resize(rhs[0].size());
+                //_m[i].resize(rhs[0].size());
                 for (size_type j = 0; j < rhs[0].size(); j++)
                 {
-                        _m[i][j] *= rhs[i][j];
+                    T temp;
+                    temp = 0;
+                    for(size_type k = 0; k < _m[0].size(); k++)
+                    {
+                        temp += _m[i][k]*rhs[k][j];
+                    }
+                    result[i][j] = temp;
+                    
                 }
             }
 
-            return *this;;
+            *this = result;
+            return *this;
         }
 
         // --
