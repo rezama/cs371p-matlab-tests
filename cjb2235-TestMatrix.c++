@@ -1035,16 +1035,6 @@ struct SelfTestMatrix : CppUnit::TestFixture {
         CPPUNIT_ASSERT(r.eq(ans));   
     }
 
-    // TODO
-    void t_mult_zero (T v, size_t a = 20, size_t b = 100) {
-        CPPUNIT_ASSERT(false);
-    }
-
-    // TODO
-    void t_mult_matrix (T v, T x, size_t m = 20, size_t n = 50, size_t p = 30) {
-        CPPUNIT_ASSERT(false);
-    }
-
     void t_mult_scalar (T v, size_t a = 20, size_t b = 100) {
         T scalar = v;
         Matrix<T> r(a,b,1);
@@ -1394,22 +1384,6 @@ struct SelfTestMatrix : CppUnit::TestFixture {
     // multiply
     // --------
 
-    void test_mult_zero_0 () {
-        t_mult_zero(0);
-    }
-
-    void test_mult_zero_ff () {
-        t_mult_zero((T) 0xFF);
-    }
-
-    void test_mult_zero_7f () {
-        t_mult_zero(0x7F);
-    }
-
-    void test_mult_zero_neg1 () {
-        t_mult_zero(-1);
-    }
-
     void test_mult_scalar_7f () {
         t_mult_scalar(0x7F);
     }
@@ -1747,10 +1721,6 @@ struct SelfTestMatrix : CppUnit::TestFixture {
     CPPUNIT_TEST(test_subtract_constant_neg1);
     CPPUNIT_TEST(test_subtract_constant_0);
 
-    CPPUNIT_TEST(test_mult_zero_0);
-    CPPUNIT_TEST(test_mult_zero_ff);
-    CPPUNIT_TEST(test_mult_zero_7f);
-    CPPUNIT_TEST(test_mult_zero_neg1);
     CPPUNIT_TEST(test_mult_scalar_7f);
     CPPUNIT_TEST(test_mult_scalar_ff);
     CPPUNIT_TEST(test_mult_scalar_neg1);
