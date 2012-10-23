@@ -375,6 +375,176 @@ struct TestMatlab : CppUnit::TestFixture {
         CPPUNIT_ASSERT(ans.eq(r));
     }
 
+    void test_dot_A () {
+        Matrix<int> AL("[1,2,3]");
+        Matrix<int> AR("[4,5,6]");
+        Matrix<int> ans("[32]");
+        CPPUNIT_ASSERT(ans.eq(dot(AL,AR)));
+        CPPUNIT_ASSERT(ans.eq(dot(AR,AL)));
+    }
+
+    void test_dot_B () {
+        Matrix<int> BL("[1,2,3,4,5;6,7,8,9,0]");
+        Matrix<int> BR("[0,9,8,7,6;5,4,3,2,1]");
+        Matrix<int> ans("[30,46,48,46,30]");
+        CPPUNIT_ASSERT(ans.eq(dot(BL,BR)));
+        CPPUNIT_ASSERT(ans.eq(dot(BR,BL)));
+    }
+
+    void test_dot_C () {
+        Matrix<int> CL("[1;2;3;4;5]");
+        Matrix<int> CR("[6;7;8;9;0]");
+        Matrix<int> ans("[80]");
+        CPPUNIT_ASSERT(ans.eq(dot(CL,CR)));
+        CPPUNIT_ASSERT(ans.eq(dot(CR,CL)));
+    }
+
+    void test_dot_D () {
+        Matrix<int> D("[17,24,1,8,15;23,5,7,14,16;4,6,13,20,22;10,12,19,21,3;11,18,25,2,9]");
+        Matrix<int> ans("[1055,1105,1205,1105,1055]");
+        CPPUNIT_ASSERT(ans.eq(dot(D,D)));
+    }
+
+    void test_dot_E () {
+        Matrix<int> EL("[491,109,311,155,299,861;182,615,503,546,853,555;653,810,612,678,973,350]");
+        Matrix<int> ER("[771,658,181,919,306,463;313,640,329,729,618,989;961,255,872,752,829,180]");
+        Matrix<int> ans("[1063060,671872,755442,1050335,1425265,1010538]");
+        CPPUNIT_ASSERT(ans.eq(dot(EL,ER)));
+    }
+
+    void test_dot_E_2 () {
+        Matrix<int> EL("[491,109,311,155,299,861;182,615,503,546,853,555;653,810,612,678,973,350]");
+        Matrix<int> ET("[-711,-346,-253,-713,-901,-527;-539,-499,-227,-593,-901,-124;-945,-523,-289,-322,-757,-360]");
+        Matrix<int> ans("[-1064284,-768229,-369732,-652609,-1774513,-648567]");
+        CPPUNIT_ASSERT(ans.eq(dot(EL,ET)));
+    }
+
+    void test_dot_F () {
+        Matrix<int> FL("[-719,-770,-945,-601;-737,-920,-473,-645;-234,-245,-743,-256;-179,-473,-255,-390;-424,-146,-828,-813]");
+        Matrix<int> FR("[-713,-867,-951,-672;-879,-571,-275,-520;-395,-182,-593,-359;-486,-503,-655,-215;-847,-970,-289,-704]");
+        Matrix<int> ans("[1699022,1617039,1875686,1487378]");
+        CPPUNIT_ASSERT(ans.eq(dot(FL,FR)));
+    }
+
+    void test_dot_F_2 () {
+        Matrix<int> FL("[-719,-770,-945,-601;-737,-920,-473,-645;-234,-245,-743,-256;-179,-473,-255,-390;-424,-146,-828,-813]");
+        Matrix<int> FT("[685,378,803,755;977,337,276,548;168,782,993,828;628,995,822,420;472,267,481,165]");
+        Matrix<int> ans("[-1564416,-1302307,-2235060,-1317128]");
+        CPPUNIT_ASSERT(ans.eq(dot(FL,FT)));
+    }
+
+    void test_rand_simple_int () {
+        Matrix<int> A = rand< Matrix<int> >(5,5);
+        Matrix<int> B = rand< Matrix<int> >(5,5);
+        CPPUNIT_ASSERT(A.size() == B.size());
+        CPPUNIT_ASSERT(A[0].size() == B[0].size());
+        CPPUNIT_ASSERT(!A.eq(B));
+    }
+
+    void test_rand_simple_double () {
+        Matrix<double> A = rand< Matrix<double> >(5,5);
+        Matrix<double> B = rand< Matrix<double> >(5,5);
+        CPPUNIT_ASSERT(A.size() == B.size());
+        CPPUNIT_ASSERT(A[0].size() == B[0].size());
+        CPPUNIT_ASSERT(!A.eq(B));
+    }
+
+    void test_rand_simple_int_2 () {
+        Matrix<int> A = rand< Matrix<int> >(1,67);
+        Matrix<int> B = rand< Matrix<int> >(1,67);
+        CPPUNIT_ASSERT(A.size() == B.size());
+        CPPUNIT_ASSERT(A[0].size() == B[0].size());
+        CPPUNIT_ASSERT(!A.eq(B));
+    }
+
+    void test_rand_simple_double_2 () {
+        Matrix<double> A = rand< Matrix<double> >(1,67);
+        Matrix<double> B = rand< Matrix<double> >(1,67);
+        CPPUNIT_ASSERT(A.size() == B.size());
+        CPPUNIT_ASSERT(A[0].size() == B[0].size());
+        CPPUNIT_ASSERT(!A.eq(B));
+    }
+
+    void test_rand_simple_int_3 () {
+        Matrix<int> A = rand< Matrix<int> >(69,1);
+        Matrix<int> B = rand< Matrix<int> >(69,1);
+        CPPUNIT_ASSERT(A.size() == B.size());
+        CPPUNIT_ASSERT(A[0].size() == B[0].size());
+        CPPUNIT_ASSERT(!A.eq(B));
+    }
+
+    void test_rand_simple_double_3 () {
+        Matrix<double> A = rand< Matrix<double> >(69,1);
+        Matrix<double> B = rand< Matrix<double> >(69,1);
+        CPPUNIT_ASSERT(A.size() == B.size());
+        CPPUNIT_ASSERT(A[0].size() == B[0].size());
+        CPPUNIT_ASSERT(!A.eq(B));
+    }
+
+    void t_rand_seeded_int (size_t r, size_t c, unsigned s) {
+        Matrix<int> A = rand< Matrix<int> >(r,c,s);
+
+        srand(s);
+        for (size_t i = 0; i < r; ++i) {
+            for (size_t j = 0; j < c; ++j) {
+                rand();
+                CPPUNIT_ASSERT(rand() == A[i][j]);
+            }
+        }
+    }
+
+    void t_rand_seeded_double (size_t r, size_t c, unsigned s) {
+        Matrix<double> A = rand< Matrix<double> >(r,c,s);
+
+        srand(s);
+        for (size_t i = 0; i < r; ++i) {
+            for (size_t j = 0; j < c; ++j) {
+                CPPUNIT_ASSERT((((double) rand()) / RAND_MAX) == A[i][j]);
+            }
+        }
+    }
+
+    void test_rand_seeded_int_1 () {
+        t_rand_seeded_int(3,7,156168);
+    }
+
+    void test_rand_seeded_int_2 () {
+        t_rand_seeded_int(38,72,568156168);
+    }
+
+    void test_rand_seeded_int_3 () {
+        t_rand_seeded_int(66,12,27);
+    }    
+
+    void test_rand_seeded_int_4 () {
+        t_rand_seeded_int(1,43,69420);
+    }
+
+    void test_rand_seeded_int_5 () {
+        t_rand_seeded_int(33,1,448537);
+    }
+
+    void test_rand_seeded_double_1 () {
+        t_rand_seeded_double(3,7,156168);
+    }
+
+    void test_rand_seeded_double_2 () {
+        t_rand_seeded_double(38,72,568156168);
+    }
+
+    void test_rand_seeded_double_3 () {
+        t_rand_seeded_double(66,12,27);
+    }    
+
+    void test_rand_seeded_double_4 () {
+        t_rand_seeded_double(1,43,69420);
+    }
+
+    void test_rand_seeded_double_5 () {
+        t_rand_seeded_double(33,1,448537);
+    }
+
+
     // -----
     // suite
     // -----
@@ -432,7 +602,32 @@ struct TestMatlab : CppUnit::TestFixture {
     CPPUNIT_TEST(test_zeros_2);
     CPPUNIT_TEST(test_zeros_3);
 
-    // rand
+    CPPUNIT_TEST(test_dot_A);
+    CPPUNIT_TEST(test_dot_B);
+    CPPUNIT_TEST(test_dot_C);
+    CPPUNIT_TEST(test_dot_D);
+    CPPUNIT_TEST(test_dot_E);
+    CPPUNIT_TEST(test_dot_E_2);
+    CPPUNIT_TEST(test_dot_F);
+    CPPUNIT_TEST(test_dot_F_2);
+
+    CPPUNIT_TEST(test_rand_simple_int);
+    CPPUNIT_TEST(test_rand_simple_int_2);
+    CPPUNIT_TEST(test_rand_simple_int_3);
+    CPPUNIT_TEST(test_rand_simple_double);
+    CPPUNIT_TEST(test_rand_simple_double_2);
+    CPPUNIT_TEST(test_rand_simple_double_3);
+
+    CPPUNIT_TEST(test_rand_seeded_int_1);
+    CPPUNIT_TEST(test_rand_seeded_int_2);
+    CPPUNIT_TEST(test_rand_seeded_int_3);
+    CPPUNIT_TEST(test_rand_seeded_int_4);
+    CPPUNIT_TEST(test_rand_seeded_int_5);
+    CPPUNIT_TEST(test_rand_seeded_double_1);
+    CPPUNIT_TEST(test_rand_seeded_double_2);
+    CPPUNIT_TEST(test_rand_seeded_double_3);
+    CPPUNIT_TEST(test_rand_seeded_double_4);
+    CPPUNIT_TEST(test_rand_seeded_double_5);
 
     // linsolve
 
