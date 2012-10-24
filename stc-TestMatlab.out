@@ -1,0 +1,90 @@
+==4384== Memcheck, a memory error detector
+==4384== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==4384== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==4384== Command: TestMatlab.app
+==4384== 
+TestMatlab.c++
+.
+test_horzcat: 
+.
+test_horzcat2: 
+.
+test_horzcat3: 
+.
+test_horzcat4: 
+.
+test_vertcat: 
+.
+test_vertcat2: 
+.
+test_vertcat3: 
+.
+test_diag: 
+.
+test_diag2: 
+.
+test_diag3: 
+.
+test_dot: 
+.
+test_dot2: 
+.
+test_dot3: 
+.
+test_eye: 
+.
+test_eye2: 
+.
+test_eye3: 
+..
+test_ones: 
+.
+test_ones2: 
+.
+test_ones3: 
+.
+test_rand: 
+.
+test_rand2: 
+.
+test_rand3: 
+.
+test_transpose: 
+.
+test_transpose2: 
+.
+test_transpose3: 
+.
+test_tril: 
+.
+test_tril2: 
+.
+test_tril3: 
+.
+test_triu: 
+.
+test_triu2: 
+.
+test_triu3: 
+...
+
+
+OK (35 tests)
+
+
+Done.
+==4384== 
+==4384== HEAP SUMMARY:
+==4384==     in use at exit: 122,880 bytes in 6 blocks
+==4384==   total heap usage: 1,869 allocs, 1,863 frees, 246,747 bytes allocated
+==4384== 
+==4384== LEAK SUMMARY:
+==4384==    definitely lost: 0 bytes in 0 blocks
+==4384==    indirectly lost: 0 bytes in 0 blocks
+==4384==      possibly lost: 0 bytes in 0 blocks
+==4384==    still reachable: 122,880 bytes in 6 blocks
+==4384==         suppressed: 0 bytes in 0 blocks
+==4384== Rerun with --leak-check=full to see details of leaked memory
+==4384== 
+==4384== For counts of detected and suppressed errors, rerun with: -v
+==4384== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 21 from 6)
