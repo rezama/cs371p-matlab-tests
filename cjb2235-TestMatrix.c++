@@ -1792,6 +1792,806 @@ struct SelfTestMatrix : CppUnit::TestFixture {
 
     CPPUNIT_TEST_SUITE_END();};
 
+// --------------
+// TestExceptions
+// --------------
+
+/*
+Optionally tests exception cases for Matrix objects.
+ */
+template <typename T>
+struct TestExceptions : CppUnit::TestFixture {
+
+    void test_equals_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        try { 
+            Matrix<bool> r = A == B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_equals_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A == B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_equals_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        try { 
+            Matrix<bool> r = A == B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_equals_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A == B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_equals_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<bool> r = A == B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_equals_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<bool> r = A == B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_equals_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A == B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_equals_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A == B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_equals_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<bool> r = A == B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_not_equals_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        try { 
+            Matrix<bool> r = A != B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_not_equals_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A != B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_not_equals_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        try { 
+            Matrix<bool> r = A != B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_not_equals_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A != B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_not_equals_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<bool> r = A != B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_not_equals_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<bool> r = A != B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_not_equals_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A != B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_not_equals_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A != B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_not_equals_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<bool> r = A != B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_less_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        try { 
+            Matrix<bool> r = A < B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_less_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A < B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_less_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        try { 
+            Matrix<bool> r = A < B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_less_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A < B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_less_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<bool> r = A < B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_less_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<bool> r = A < B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_less_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A < B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_less_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A < B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_less_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<bool> r = A < B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_lesseq_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        try { 
+            Matrix<bool> r = A <= B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_lesseq_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A <= B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_lesseq_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        try { 
+            Matrix<bool> r = A <= B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_lesseq_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A <= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_lesseq_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<bool> r = A <= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_lesseq_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<bool> r = A <= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_lesseq_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A <= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_lesseq_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A <= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_lesseq_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<bool> r = A <= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greater_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        try { 
+            Matrix<bool> r = A > B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_greater_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A > B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_greater_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        try { 
+            Matrix<bool> r = A > B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_greater_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A > B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greater_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<bool> r = A > B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greater_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<bool> r = A > B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greater_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A > B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greater_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A > B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greater_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<bool> r = A > B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greatereq_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        try { 
+            Matrix<bool> r = A >= B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_greatereq_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A >= B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_greatereq_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        try { 
+            Matrix<bool> r = A >= B;
+        } catch (...) { CPPUNIT_ASSERT(false); }
+    }
+
+    void test_greatereq_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<bool> r = A >= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greatereq_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<bool> r = A >= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greatereq_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<bool> r = A >= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greatereq_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A >= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greatereq_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<bool> r = A >= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_greatereq_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<bool> r = A >= B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+   void test_plus_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        Matrix<T> r = A + B;
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_plus_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        Matrix<T> r = A + B;
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_plus_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        Matrix<T> r = A + B;
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_plus_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<T> r = A + B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_plus_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<T> r = A + B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_plus_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<T> r = A + B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_plus_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<T> r = A + B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_plus_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<T> r = A + B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_plus_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<T> r = A + B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_minus_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        Matrix<T> r = A - B;
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_minus_both_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(3,0);
+        Matrix<T> r = A - B;
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_minus_both_zero_dim_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,3);
+        Matrix<T> r = A - B;
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_minus_diff_size () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        try { 
+            Matrix<T> r = A - B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_minus_diff_size_2 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(0,4);
+        try { 
+            Matrix<T> r = A - B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_minus_diff_size_3 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(4,0);
+        try { 
+            Matrix<T> r = A - B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_minus_diff_size_4 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<T> r = A - B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_minus_diff_size_5 () {
+        Matrix<T> A(4,4);
+        Matrix<T> B(4,3);
+        try { 
+            Matrix<T> r = A - B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_minus_diff_size_6 () {
+        Matrix<T> A(3,4);
+        Matrix<T> B(3,3);
+        try { 
+            Matrix<T> r = A - B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_mult_both_empty () {
+        Matrix<T> A;
+        Matrix<T> B;
+        Matrix<T> r = A * B;
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_mult_zero_dim () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(0,3);
+        Matrix<T> ans(3,3,0);
+        Matrix<T> r = A * B;
+        CPPUNIT_ASSERT(ans.eq(r));
+    }
+
+    void test_mult_zero_dim_2 () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(0,4);
+        Matrix<T> ans(3,4,0);
+        Matrix<T> r = A * B;
+        CPPUNIT_ASSERT(ans.eq(r));
+    }
+
+    void test_mult_zero_dim_3 () {
+        Matrix<T> A(0,3);
+        Matrix<T> B(3,0);
+        Matrix<T> ans;
+        Matrix<T> r = A * B;
+        CPPUNIT_ASSERT(ans.eq(r));
+    }
+
+    void test_mult_bad_size () {
+        Matrix<T> A(3,0);
+        Matrix<T> B(1,3);
+        try {
+            Matrix<T> r = A * B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_mult_bad_size_2 () {
+        Matrix<T> A(3,2);
+        Matrix<T> B(1,3);
+        try {
+            Matrix<T> r = A * B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_mult_bad_size_3 () {
+        Matrix<T> A(3,1);
+        Matrix<T> B(2,3);
+        try {
+            Matrix<T> r = A * B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_mult_bad_size_4 () {
+        Matrix<T> A(3,2);
+        Matrix<T> B(1,4);
+        try {
+            Matrix<T> r = A * B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_mult_bad_size_5 () {
+        Matrix<T> A(3,1);
+        Matrix<T> B(2,4);
+        try {
+            Matrix<T> r = A * B;
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    // -----
+    // suite
+    // -----
+
+    CPPUNIT_TEST_SUITE(TestExceptions);
+    CPPUNIT_TEST(test_equals_both_empty);
+    CPPUNIT_TEST(test_equals_both_zero_dim);
+    CPPUNIT_TEST(test_equals_both_zero_dim_2);
+    CPPUNIT_TEST(test_equals_diff_size);
+    CPPUNIT_TEST(test_equals_diff_size_2);
+    CPPUNIT_TEST(test_equals_diff_size_3);
+    CPPUNIT_TEST(test_equals_diff_size_4);
+    CPPUNIT_TEST(test_equals_diff_size_5);
+    CPPUNIT_TEST(test_equals_diff_size_6);
+
+    CPPUNIT_TEST(test_not_equals_both_empty);
+    CPPUNIT_TEST(test_not_equals_both_zero_dim);
+    CPPUNIT_TEST(test_not_equals_both_zero_dim_2);
+    CPPUNIT_TEST(test_not_equals_diff_size);
+    CPPUNIT_TEST(test_not_equals_diff_size_2);
+    CPPUNIT_TEST(test_not_equals_diff_size_3);
+    CPPUNIT_TEST(test_not_equals_diff_size_4);
+    CPPUNIT_TEST(test_not_equals_diff_size_5);
+    CPPUNIT_TEST(test_not_equals_diff_size_6);
+
+    CPPUNIT_TEST(test_less_both_empty);
+    CPPUNIT_TEST(test_less_both_zero_dim);
+    CPPUNIT_TEST(test_less_both_zero_dim_2);
+    CPPUNIT_TEST(test_less_diff_size);
+    CPPUNIT_TEST(test_less_diff_size_2);
+    CPPUNIT_TEST(test_less_diff_size_3);
+    CPPUNIT_TEST(test_less_diff_size_4);
+    CPPUNIT_TEST(test_less_diff_size_5);
+    CPPUNIT_TEST(test_less_diff_size_6);
+
+    CPPUNIT_TEST(test_lesseq_both_empty);
+    CPPUNIT_TEST(test_lesseq_both_zero_dim);
+    CPPUNIT_TEST(test_lesseq_both_zero_dim_2);
+    CPPUNIT_TEST(test_lesseq_diff_size);
+    CPPUNIT_TEST(test_lesseq_diff_size_2);
+    CPPUNIT_TEST(test_lesseq_diff_size_3);
+    CPPUNIT_TEST(test_lesseq_diff_size_4);
+    CPPUNIT_TEST(test_lesseq_diff_size_5);
+    CPPUNIT_TEST(test_lesseq_diff_size_6);
+
+    CPPUNIT_TEST(test_greater_both_empty);
+    CPPUNIT_TEST(test_greater_both_zero_dim);
+    CPPUNIT_TEST(test_greater_both_zero_dim_2);
+    CPPUNIT_TEST(test_greater_diff_size);
+    CPPUNIT_TEST(test_greater_diff_size_2);
+    CPPUNIT_TEST(test_greater_diff_size_3);
+    CPPUNIT_TEST(test_greater_diff_size_4);
+    CPPUNIT_TEST(test_greater_diff_size_5);
+    CPPUNIT_TEST(test_greater_diff_size_6);
+
+    CPPUNIT_TEST(test_greatereq_both_empty);
+    CPPUNIT_TEST(test_greatereq_both_zero_dim);
+    CPPUNIT_TEST(test_greatereq_both_zero_dim_2);
+    CPPUNIT_TEST(test_greatereq_diff_size);
+    CPPUNIT_TEST(test_greatereq_diff_size_2);
+    CPPUNIT_TEST(test_greatereq_diff_size_3);
+    CPPUNIT_TEST(test_greatereq_diff_size_4);
+    CPPUNIT_TEST(test_greatereq_diff_size_5);
+    CPPUNIT_TEST(test_greatereq_diff_size_6);
+
+    CPPUNIT_TEST(test_plus_both_empty);
+    CPPUNIT_TEST(test_plus_both_zero_dim);
+    CPPUNIT_TEST(test_plus_both_zero_dim_2);
+    CPPUNIT_TEST(test_plus_diff_size);
+    CPPUNIT_TEST(test_plus_diff_size_2);
+    CPPUNIT_TEST(test_plus_diff_size_3);
+    CPPUNIT_TEST(test_plus_diff_size_4);
+    CPPUNIT_TEST(test_plus_diff_size_5);
+    CPPUNIT_TEST(test_plus_diff_size_6);
+
+    CPPUNIT_TEST(test_minus_both_empty);
+    CPPUNIT_TEST(test_minus_both_zero_dim);
+    CPPUNIT_TEST(test_minus_both_zero_dim_2);
+    CPPUNIT_TEST(test_minus_diff_size);
+    CPPUNIT_TEST(test_minus_diff_size_2);
+    CPPUNIT_TEST(test_minus_diff_size_3);
+    CPPUNIT_TEST(test_minus_diff_size_4);
+    CPPUNIT_TEST(test_minus_diff_size_5);
+    CPPUNIT_TEST(test_minus_diff_size_6);
+
+    CPPUNIT_TEST(test_mult_both_empty);
+    CPPUNIT_TEST(test_mult_zero_dim);
+    CPPUNIT_TEST(test_mult_zero_dim_2);
+    CPPUNIT_TEST(test_mult_zero_dim_3);
+    CPPUNIT_TEST(test_mult_bad_size);
+    CPPUNIT_TEST(test_mult_bad_size_2);
+    CPPUNIT_TEST(test_mult_bad_size_3);
+    CPPUNIT_TEST(test_mult_bad_size_4);
+    CPPUNIT_TEST(test_mult_bad_size_5);
+    CPPUNIT_TEST_SUITE_END();};
+
 // ----
 // main
 // ----
@@ -1809,6 +2609,11 @@ int main () {
     tr.addTest(SelfTestMatrix<short>::suite());
     tr.addTest(SelfTestMatrix<float>::suite());
     tr.addTest(SelfTestMatrix<double>::suite());
+    tr.addTest(TestExceptions<int>::suite());
+    tr.addTest(TestExceptions<char>::suite());
+    tr.addTest(TestExceptions<short>::suite());
+    tr.addTest(TestExceptions<float>::suite());
+    tr.addTest(TestExceptions<double>::suite());
     tr.run();
 
     cout << "Done." << endl;

@@ -433,6 +433,16 @@ struct TestMatlab : CppUnit::TestFixture {
         CPPUNIT_ASSERT(ans.eq(dot(FL,FT)));
     }
 
+    void test_dot_G () {
+        Matrix<int> D("[1,2,3,4,5]");
+        Matrix<int> E("[1;2;3;4;5]");
+        Matrix<int> ans(1,1,55);
+        CPPUNIT_ASSERT(ans.eq(dot(D,D)));
+        CPPUNIT_ASSERT(ans.eq(dot(D,E)));
+        CPPUNIT_ASSERT(ans.eq(dot(E,D)));
+        CPPUNIT_ASSERT(ans.eq(dot(E,E)));
+    }
+
     void test_rand_simple_int () {
         Matrix<int> A = rand< Matrix<int> >(5,5);
         Matrix<int> B = rand< Matrix<int> >(5,5);
@@ -544,6 +554,132 @@ struct TestMatlab : CppUnit::TestFixture {
         t_rand_seeded_double(33,1,448537);
     }
 
+    void test_zero_dot_1 () {
+        Matrix<int> A(0,0);
+        Matrix<int> ans(1,1,0);
+        CPPUNIT_ASSERT(ans.eq(dot(A,A)));
+    }
+
+    void test_zero_diag_1 () {
+        Matrix<int> A(0,0);
+        CPPUNIT_ASSERT(A.eq(diag(A)));
+    }
+
+    void test_zero_transpose_1 () {
+        Matrix<int> A(0,0);
+        CPPUNIT_ASSERT(A.eq(transpose(A)));
+    }
+
+    void test_zero_tril_1 () {
+        Matrix<int> A(0,0);
+        CPPUNIT_ASSERT(A.eq(tril(A)));
+    }
+
+    void test_zero_triu_1 () {
+        Matrix<int> A(0,0);
+        CPPUNIT_ASSERT(A.eq(triu(A)));
+    }
+
+    void test_zero_dot_2 () {
+        Matrix<int> A(4,0);
+        Matrix<int> ans(1,0);
+        CPPUNIT_ASSERT(ans.eq(dot(A,A)));
+    }
+
+    void test_zero_diag_2 () {
+        Matrix<int> A(4,0);
+        Matrix<int> ans(0,0);
+        CPPUNIT_ASSERT(ans.eq(diag(A)));
+    }
+
+    void test_zero_transpose_2 () {
+        Matrix<int> A(4,0);
+        Matrix<int> ans(0,4);
+        CPPUNIT_ASSERT(ans.eq(transpose(A)));
+    }
+
+    void test_zero_tril_2 () {
+        Matrix<int> A(4,0);
+        CPPUNIT_ASSERT(A.eq(tril(A)));
+    }
+
+    void test_zero_triu_2 () {
+        Matrix<int> A(4,0);
+        CPPUNIT_ASSERT(A.eq(triu(A)));
+    }
+
+    void test_zero_dot_3 () {
+        Matrix<int> A(0,4);
+        Matrix<int> ans(1,4,0);       
+        CPPUNIT_ASSERT(ans.eq(dot(A,A)));
+    }
+
+    void test_zero_diag_3 () {
+        Matrix<int> A(0,4);
+        Matrix<int> ans(0,0);
+        CPPUNIT_ASSERT(ans.eq(diag(A)));
+    }
+
+    void test_zero_transpose_3 () {
+        Matrix<int> A(0,4);
+        Matrix<int> ans(4,0);
+        CPPUNIT_ASSERT(ans.eq(transpose(A)));
+    }
+
+    void test_zero_tril_3 () {
+        Matrix<int> A(0,4);
+        CPPUNIT_ASSERT(A.eq(tril(A)));
+    }
+
+    void test_zero_triu_3 () {
+        Matrix<int> A(0,4);
+        CPPUNIT_ASSERT(A.eq(triu(A)));
+    }
+
+    void test_zero_eye_1 () {
+        Matrix<int> ans(0,0);
+        CPPUNIT_ASSERT(ans.eq(eye< Matrix <int> >(0,0)));
+    }
+
+    void test_zero_eye_2 () {
+        Matrix<int> ans(4,0);
+        CPPUNIT_ASSERT(ans.eq(eye< Matrix <int> >(4,0)));
+    }
+
+    void test_zero_eye_3 () {
+        Matrix<int> ans(0,4);
+        CPPUNIT_ASSERT(ans.eq(eye< Matrix <int> >(0,4)));
+    }
+
+    void test_zero_ones_1 () {
+        Matrix<int> ans(0,0);
+        CPPUNIT_ASSERT(ans.eq(ones< Matrix <int> >(0,0)));
+    }
+
+    void test_zero_ones_2 () {
+        Matrix<int> ans(4,0);
+        CPPUNIT_ASSERT(ans.eq(ones< Matrix <int> >(4,0)));
+    }
+
+    void test_zero_ones_3 () {
+        Matrix<int> ans(0,4);
+        CPPUNIT_ASSERT(ans.eq(ones< Matrix <int> >(0,4)));
+    }
+
+    void test_zero_zeros_1 () {
+        Matrix<int> ans(0,0);
+        CPPUNIT_ASSERT(ans.eq(zeros< Matrix <int> >(0,0)));
+    }
+
+    void test_zero_zeros_2 () {
+        Matrix<int> ans(4,0);
+        CPPUNIT_ASSERT(ans.eq(zeros< Matrix <int> >(4,0)));
+    }
+
+    void test_zero_zeros_3 () {
+        Matrix<int> ans(0,4);
+        CPPUNIT_ASSERT(ans.eq(zeros< Matrix <int> >(0,4)));
+    }
 
     // -----
     // suite
@@ -610,6 +746,7 @@ struct TestMatlab : CppUnit::TestFixture {
     CPPUNIT_TEST(test_dot_E_2);
     CPPUNIT_TEST(test_dot_F);
     CPPUNIT_TEST(test_dot_F_2);
+    CPPUNIT_TEST(test_dot_G);
 
     CPPUNIT_TEST(test_rand_simple_int);
     CPPUNIT_TEST(test_rand_simple_int_2);
@@ -629,8 +766,172 @@ struct TestMatlab : CppUnit::TestFixture {
     CPPUNIT_TEST(test_rand_seeded_double_4);
     CPPUNIT_TEST(test_rand_seeded_double_5);
 
+    CPPUNIT_TEST(test_zero_dot_1);
+    CPPUNIT_TEST(test_zero_diag_1);
+    CPPUNIT_TEST(test_zero_transpose_1);
+    CPPUNIT_TEST(test_zero_tril_1);
+    CPPUNIT_TEST(test_zero_triu_1);
+
+    CPPUNIT_TEST(test_zero_dot_2);
+    CPPUNIT_TEST(test_zero_diag_2);
+    CPPUNIT_TEST(test_zero_transpose_2);
+    CPPUNIT_TEST(test_zero_tril_2);
+    CPPUNIT_TEST(test_zero_triu_2);
+
+    CPPUNIT_TEST(test_zero_dot_3);
+    CPPUNIT_TEST(test_zero_diag_3);
+    CPPUNIT_TEST(test_zero_transpose_3);
+    CPPUNIT_TEST(test_zero_tril_3);
+    CPPUNIT_TEST(test_zero_triu_3);
+
+    CPPUNIT_TEST(test_zero_eye_1);
+    CPPUNIT_TEST(test_zero_eye_2);
+    CPPUNIT_TEST(test_zero_eye_3);
+
+    CPPUNIT_TEST(test_zero_ones_1);
+    CPPUNIT_TEST(test_zero_ones_2);
+    CPPUNIT_TEST(test_zero_ones_3);
+
+    CPPUNIT_TEST(test_zero_zeros_1);
+    CPPUNIT_TEST(test_zero_zeros_2);
+    CPPUNIT_TEST(test_zero_zeros_3);
+
     // linsolve
 
+    CPPUNIT_TEST_SUITE_END();};
+
+// --------------
+// TestExceptions
+// --------------
+
+/*
+Optionally tests exception cases for Matlab methods.
+ */
+template <typename T>
+struct TestExceptions : CppUnit::TestFixture {
+
+    void test_horzcat_zero () {
+        Matrix<T> A(5,0);
+        Matrix<T> B(5,5);
+        Matrix<T> r = horzcat(A,B);
+        CPPUNIT_ASSERT(r.eq(B));
+    }
+
+    void test_horzcat_zero_2 () {
+        Matrix<T> A(5,5);
+        Matrix<T> B(5,0);
+        Matrix<T> r = horzcat(A,B);
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_horzcat_bad () {
+        Matrix<T> A(4,5);
+        Matrix<T> B(5,5);
+        try {
+            Matrix<T> r = horzcat(A,B);
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_horzcat_bad_2 () {
+        Matrix<T> A(5,5);
+        Matrix<T> B(4,5);
+        try {
+            Matrix<T> r = horzcat(A,B);
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_vertcat_zero () {
+        Matrix<T> A(0,5);
+        Matrix<T> B(5,5);
+        Matrix<T> r = vertcat(A,B);
+        CPPUNIT_ASSERT(r.eq(B));
+    }
+
+    void test_vertcat_zero_2 () {
+        Matrix<T> A(5,5);
+        Matrix<T> B(0,5);
+        Matrix<T> r = vertcat(A,B);
+        CPPUNIT_ASSERT(r.eq(A));
+    }
+
+    void test_vertcat_bad () {
+        Matrix<T> A(5,4);
+        Matrix<T> B(5,5);
+        try {
+            Matrix<T> r = vertcat(A,B);
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_vertcat_bad_2 () {
+        Matrix<T> A(5,5);
+        Matrix<T> B(5,4);
+        try {
+            Matrix<T> r = vertcat(A,B);
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_dot_zero () {
+        Matrix<T> A(5,5);
+        Matrix<T> B(5,5);
+        Matrix<T> ans(1,5,0);
+        Matrix<T> r = dot(A,B);
+        CPPUNIT_ASSERT(r.eq(ans));
+    }
+
+    void test_dot_zero_2 () {
+        Matrix<T> A(0,5);
+        Matrix<T> B(0,5);
+        Matrix<T> ans(1,5,0);
+        Matrix<T> r = dot(A,B);
+        CPPUNIT_ASSERT(r.eq(ans));
+    }
+
+    void test_dot_zero_3 () {
+        Matrix<T> A(5,0);
+        Matrix<T> B(5,0);
+        Matrix<T> ans(1,0,0);
+        Matrix<T> r = dot(A,B);
+        CPPUNIT_ASSERT(r.eq(ans));
+    }
+
+    void test_dot_bad () {
+        Matrix<T> A(5,4);
+        Matrix<T> B(5,5);
+        try {
+            Matrix<T> r = dot(A,B);
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    void test_dot_bad_2 () {
+        Matrix<T> A(5,5);
+        Matrix<T> B(5,4);
+        try {
+            Matrix<T> r = dot(A,B);
+            CPPUNIT_ASSERT(false);
+        } catch (...) { /*nothing to be done*/ }
+    }
+
+    CPPUNIT_TEST_SUITE(TestExceptions);
+    CPPUNIT_TEST(test_horzcat_zero);
+    CPPUNIT_TEST(test_horzcat_zero_2);
+    CPPUNIT_TEST(test_horzcat_bad);
+    CPPUNIT_TEST(test_horzcat_bad_2);
+
+    CPPUNIT_TEST(test_vertcat_zero);
+    CPPUNIT_TEST(test_vertcat_zero_2);
+    CPPUNIT_TEST(test_vertcat_bad);
+    CPPUNIT_TEST(test_vertcat_bad_2);
+
+    CPPUNIT_TEST(test_dot_zero);
+    CPPUNIT_TEST(test_dot_zero_2);
+    CPPUNIT_TEST(test_dot_zero_3);
+    CPPUNIT_TEST(test_dot_bad);
+    CPPUNIT_TEST(test_dot_bad_2);
     CPPUNIT_TEST_SUITE_END();};
 
 // ----
@@ -644,6 +945,8 @@ int main () {
 
     CppUnit::TextTestRunner tr;
     tr.addTest(TestMatlab::suite());
+    tr.addTest(TestExceptions<int>::suite());
+    tr.addTest(TestExceptions<double>::suite());
     tr.run();
 
     cout << "Done." << endl;
