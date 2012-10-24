@@ -6,7 +6,7 @@
 
 /**
  * To test the program:
- *     g++ -g -ansi -pedantic -lcppunit -ldl -Wall TestMatlab.c++ -o TestMatlab.app
+ *     g++ -g -ansi -pedantic -lcppunit -ldl -Wall ghawk88-TestMatlab.c++ -o TestMatlab.app
  *     valgrind TestMatlab.app >& TestMatlab.out
  */
 
@@ -116,10 +116,22 @@ struct TestMatlab : CppUnit::TestFixture {
     }
 
     void test_dot_Two() {
-        Matrix<int> x(1, 2, 2);
-        Matrix<int> y(1, 2, 1);
-        Matrix<int> z(1, 1, 4);
-        x = dot(x, y);
+        Matrix<int> x(3, 3);
+      
+        Matrix<int> z(1, 3);
+	x[0][0] = 1;
+	x[0][1] = 2;
+	x[0][2] = 3;
+	x[1][0] = 1;
+	x[1][1] = 2;
+	x[1][2] = 3;
+	x[2][0] = 1;
+	x[2][1] = 2;
+	x[2][2] = 3;	        
+	x = dot(x, x);
+	z[0][0] = 3;
+	z[0][1] = 12;
+	z[0][2] = 27;
         CPPUNIT_ASSERT(x.eq(z));
     }
 
@@ -228,7 +240,7 @@ struct TestMatlab : CppUnit::TestFixture {
 
     void test_transpose_One() {
         Matrix<int> x(1, 1, 2);
-        Matrix<int> y(1, 1, 2);
+        Matrix<int> y(1,1, 2);
         x = transpose(x);
         CPPUNIT_ASSERT(x.eq(y));
     }
@@ -358,12 +370,12 @@ CPPUNIT_TEST_SUITE(TestMatlab);
 	CPPUNIT_TEST(test_eye_One);
         CPPUNIT_TEST(test_eye_Two);
         CPPUNIT_TEST(test_eye_Three);
- /*       
+     
 	CPPUNIT_TEST(test_dot_One);
         CPPUNIT_TEST(test_dot_Two);
         CPPUNIT_TEST(test_dot_Three);
         CPPUNIT_TEST(test_dot_4);
-*/
+
 
 
         CPPUNIT_TEST(test_ones_One);
