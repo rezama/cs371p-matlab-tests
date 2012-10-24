@@ -1,0 +1,28 @@
+==18591== Memcheck, a memory error detector
+==18591== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==18591== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==18591== Command: TestMatlab.app
+==18591== 
+TestMatlab.c++
+.................................................
+
+
+OK (49 tests)
+
+
+Done.
+==18591== 
+==18591== HEAP SUMMARY:
+==18591==     in use at exit: 122,880 bytes in 6 blocks
+==18591==   total heap usage: 1,700 allocs, 1,694 frees, 284,872 bytes allocated
+==18591== 
+==18591== LEAK SUMMARY:
+==18591==    definitely lost: 0 bytes in 0 blocks
+==18591==    indirectly lost: 0 bytes in 0 blocks
+==18591==      possibly lost: 0 bytes in 0 blocks
+==18591==    still reachable: 122,880 bytes in 6 blocks
+==18591==         suppressed: 0 bytes in 0 blocks
+==18591== Rerun with --leak-check=full to see details of leaked memory
+==18591== 
+==18591== For counts of detected and suppressed errors, rerun with: -v
+==18591== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
