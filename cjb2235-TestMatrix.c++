@@ -1801,6 +1801,26 @@ Optionally tests exception cases for Matrix objects.
  */
 template <typename T>
 struct TestExceptions : CppUnit::TestFixture {
+    void test_invalid_constructor () {
+        try {
+            Matrix<T> A(-1);
+            CPPUNIT_ASSERT(false);
+        } catch (std::invalid_argument&) { /*nothing to be done*/ }
+    }
+
+    void test_invalid_constructor_2 () {
+        try {
+            Matrix<T> A(-1,-2);
+            CPPUNIT_ASSERT(false);
+        } catch (std::invalid_argument&) { /*nothing to be done*/ }
+    }
+
+    void test_invalid_constructor_3 () {
+        try {
+            Matrix<T> A(-2,-1,1);
+            CPPUNIT_ASSERT(false);
+        } catch (std::invalid_argument&) { /*nothing to be done*/ }
+    }
 
     void test_equals_both_empty () {
         Matrix<T> A;
@@ -2501,6 +2521,10 @@ struct TestExceptions : CppUnit::TestFixture {
     // -----
 
     CPPUNIT_TEST_SUITE(TestExceptions);
+    CPPUNIT_TEST(test_invalid_constructor);
+    CPPUNIT_TEST(test_invalid_constructor_2);
+    CPPUNIT_TEST(test_invalid_constructor_3);
+
     CPPUNIT_TEST(test_equals_both_empty);
     CPPUNIT_TEST(test_equals_both_zero_dim);
     CPPUNIT_TEST(test_equals_both_zero_dim_2);

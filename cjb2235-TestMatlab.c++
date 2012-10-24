@@ -681,6 +681,25 @@ struct TestMatlab : CppUnit::TestFixture {
         CPPUNIT_ASSERT(ans.eq(zeros< Matrix <int> >(0,4)));
     }
 
+    void test_diag_expansion_1 () {
+        Matrix<int> A("[1,2,3,4]");
+        Matrix<int> r = diag(A);
+        Matrix<int> ans("[1,0,0,0;0,2,0,0;0,0,3,0;0,0,0,4]");
+        CPPUNIT_ASSERT(ans.eq(r));
+    }    
+    void test_diag_expansion_2 () {
+        Matrix<int> B("[1]");
+        Matrix<int> r = diag(B);
+        Matrix<int> ans("[1]");
+        CPPUNIT_ASSERT(ans.eq(r));
+    }    
+    void test_diag_expansion_3 () {
+        Matrix<int> C("[1;2;3;4;5]");
+        Matrix<int> r = diag(C);
+        Matrix<int> ans("[1,0,0,0,0;0,2,0,0,0;0,0,3,0,0;0,0,0,4,0;0,0,0,0,5]");
+        CPPUNIT_ASSERT(ans.eq(r));
+    }
+
     // -----
     // suite
     // -----
@@ -795,6 +814,10 @@ struct TestMatlab : CppUnit::TestFixture {
     CPPUNIT_TEST(test_zero_zeros_1);
     CPPUNIT_TEST(test_zero_zeros_2);
     CPPUNIT_TEST(test_zero_zeros_3);
+
+    CPPUNIT_TEST(test_diag_expansion_1);
+    CPPUNIT_TEST(test_diag_expansion_2);
+    CPPUNIT_TEST(test_diag_expansion_3);
 
     // linsolve
 
