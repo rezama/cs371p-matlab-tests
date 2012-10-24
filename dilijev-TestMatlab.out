@@ -1,82 +1,28 @@
-==9923== Memcheck, a memory error detector
-==9923== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
-==9923== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
-==9923== Command: TestMatlab.app
-==9923== 
+==28803== Memcheck, a memory error detector
+==28803== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==28803== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==28803== Command: TestMatlab.app
+==28803== 
 TestMatlab.c++
-==9923== Invalid read of size 4
-==9923==    at 0x41829C: Matrix<int> tril<Matrix<int> >(Matrix<int> const&) (Matlab.h:461)
-==9923==    by 0x40EB27: TestMatlab::test_tril_2() (TestMatlab.c++:611)
-==9923==    by 0x41C7BF: CppUnit::TestCaller<TestMatlab>::runTest() (TestCaller.h:166)
-==9923==    by 0x4E558E9: CppUnit::TestCaseMethodFunctor::operator()() const (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E48E33: CppUnit::DefaultProtector::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E51E66: CppUnit::ProtectorChain::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E5C593: CppUnit::TestResult::protect(CppUnit::Functor const&, CppUnit::Test*, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E55687: CppUnit::TestCase::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E55DC2: CppUnit::TestComposite::doRunChildTests(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E55CE5: CppUnit::TestComposite::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E5C1B9: CppUnit::TestResult::runTest(CppUnit::Test*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E5E5E2: CppUnit::TestRunner::run(CppUnit::TestResult&, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==  Address 0x5e17df8 is 0 bytes after a block of size 8 alloc'd
-==9923==    at 0x4C292CB: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==9923==    by 0x41ABB8: __gnu_cxx::new_allocator<int>::allocate(unsigned long, void const*) (new_allocator.h:89)
-==9923==    by 0x41A37A: std::_Vector_base<int, std::allocator<int> >::_M_allocate(unsigned long) (stl_vector.h:140)
-==9923==    by 0x4196AA: std::_Vector_base<int, std::allocator<int> >::_Vector_base(unsigned long, std::allocator<int> const&) (stl_vector.h:113)
-==9923==    by 0x41AE2A: std::vector<int, std::allocator<int> >::vector(std::vector<int, std::allocator<int> > const&) (stl_vector.h:242)
-==9923==    by 0x41B9E6: void std::_Construct<std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, std::vector<int, std::allocator<int> > const&) (stl_construct.h:74)
-==9923==    by 0x41B3B8: void std::__uninitialized_fill_n<false>::uninitialized_fill_n<std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > const&) (stl_uninitialized.h:187)
-==9923==    by 0x41AC43: void std::uninitialized_fill_n<std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > const&) (stl_uninitialized.h:223)
-==9923==    by 0x41A43C: void std::__uninitialized_fill_n_a<std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > const&, std::allocator<std::vector<int, std::allocator<int> > >&) (stl_uninitialized.h:318)
-==9923==    by 0x41985F: std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_fill_initialize(unsigned long, std::vector<int, std::allocator<int> > const&) (stl_vector.h:1035)
-==9923==    by 0x4187DE: std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::vector(unsigned long, std::vector<int, std::allocator<int> > const&, std::allocator<std::vector<int, std::allocator<int> > > const&) (stl_vector.h:230)
-==9923==    by 0x416A90: Matrix<int>::Matrix(unsigned long, unsigned long, int const&) (Matrix.h:397)
-==9923== 
-==9923== Invalid write of size 4
-==9923==    at 0x41829E: Matrix<int> tril<Matrix<int> >(Matrix<int> const&) (Matlab.h:461)
-==9923==    by 0x40EB27: TestMatlab::test_tril_2() (TestMatlab.c++:611)
-==9923==    by 0x41C7BF: CppUnit::TestCaller<TestMatlab>::runTest() (TestCaller.h:166)
-==9923==    by 0x4E558E9: CppUnit::TestCaseMethodFunctor::operator()() const (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E48E33: CppUnit::DefaultProtector::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E51E66: CppUnit::ProtectorChain::protect(CppUnit::Functor const&, CppUnit::ProtectorContext const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E5C593: CppUnit::TestResult::protect(CppUnit::Functor const&, CppUnit::Test*, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E55687: CppUnit::TestCase::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E55DC2: CppUnit::TestComposite::doRunChildTests(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E55CE5: CppUnit::TestComposite::run(CppUnit::TestResult*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E5C1B9: CppUnit::TestResult::runTest(CppUnit::Test*) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==    by 0x4E5E5E2: CppUnit::TestRunner::run(CppUnit::TestResult&, std::string const&) (in /usr/lib/libcppunit-1.12.so.1.0.0)
-==9923==  Address 0x5e18198 is 0 bytes after a block of size 8 alloc'd
-==9923==    at 0x4C292CB: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==9923==    by 0x41ABB8: __gnu_cxx::new_allocator<int>::allocate(unsigned long, void const*) (new_allocator.h:89)
-==9923==    by 0x41A37A: std::_Vector_base<int, std::allocator<int> >::_M_allocate(unsigned long) (stl_vector.h:140)
-==9923==    by 0x4196AA: std::_Vector_base<int, std::allocator<int> >::_Vector_base(unsigned long, std::allocator<int> const&) (stl_vector.h:113)
-==9923==    by 0x41AE2A: std::vector<int, std::allocator<int> >::vector(std::vector<int, std::allocator<int> > const&) (stl_vector.h:242)
-==9923==    by 0x41B9E6: void std::_Construct<std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, std::vector<int, std::allocator<int> > const&) (stl_construct.h:74)
-==9923==    by 0x41B3B8: void std::__uninitialized_fill_n<false>::uninitialized_fill_n<std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > const&) (stl_uninitialized.h:187)
-==9923==    by 0x41AC43: void std::uninitialized_fill_n<std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > const&) (stl_uninitialized.h:223)
-==9923==    by 0x41A43C: void std::__uninitialized_fill_n_a<std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> >, std::vector<int, std::allocator<int> > >(std::vector<int, std::allocator<int> >*, unsigned long, std::vector<int, std::allocator<int> > const&, std::allocator<std::vector<int, std::allocator<int> > >&) (stl_uninitialized.h:318)
-==9923==    by 0x41985F: std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::_M_fill_initialize(unsigned long, std::vector<int, std::allocator<int> > const&) (stl_vector.h:1035)
-==9923==    by 0x4187DE: std::vector<std::vector<int, std::allocator<int> >, std::allocator<std::vector<int, std::allocator<int> > > >::vector(unsigned long, std::vector<int, std::allocator<int> > const&, std::allocator<std::vector<int, std::allocator<int> > > const&) (stl_vector.h:230)
-==9923==    by 0x416A90: Matrix<int>::Matrix(unsigned long, unsigned long, int const&) (Matrix.h:397)
-==9923== 
-..............................................................
+......................................................................
 
 
-OK (62 tests)
+OK (70 tests)
 
 
 Done.
-==9923== 
-==9923== HEAP SUMMARY:
-==9923==     in use at exit: 122,880 bytes in 6 blocks
-==9923==   total heap usage: 2,270 allocs, 2,264 frees, 335,873 bytes allocated
-==9923== 
-==9923== LEAK SUMMARY:
-==9923==    definitely lost: 0 bytes in 0 blocks
-==9923==    indirectly lost: 0 bytes in 0 blocks
-==9923==      possibly lost: 0 bytes in 0 blocks
-==9923==    still reachable: 122,880 bytes in 6 blocks
-==9923==         suppressed: 0 bytes in 0 blocks
-==9923== Rerun with --leak-check=full to see details of leaked memory
-==9923== 
-==9923== For counts of detected and suppressed errors, rerun with: -v
-==9923== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 4 from 4)
+==28803== 
+==28803== HEAP SUMMARY:
+==28803==     in use at exit: 122,880 bytes in 6 blocks
+==28803==   total heap usage: 3,341 allocs, 3,335 frees, 383,286 bytes allocated
+==28803== 
+==28803== LEAK SUMMARY:
+==28803==    definitely lost: 0 bytes in 0 blocks
+==28803==    indirectly lost: 0 bytes in 0 blocks
+==28803==      possibly lost: 0 bytes in 0 blocks
+==28803==    still reachable: 122,880 bytes in 6 blocks
+==28803==         suppressed: 0 bytes in 0 blocks
+==28803== Rerun with --leak-check=full to see details of leaked memory
+==28803== 
+==28803== For counts of detected and suppressed errors, rerun with: -v
+==28803== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)

@@ -13,11 +13,11 @@
 // --------
 // includes
 // --------
+#include <stdexcept>
 
 #include "cppunit/extensions/HelperMacros.h" // CPPUNIT_TEST, CPPUNIT_TEST_SUITE, CPPUNIT_TEST_SUITE_END
 #include "cppunit/TestFixture.h"             // TestFixture
 #include "cppunit/TextTestRunner.h"          // TestRunner
-
 #include "Matrix.h"
 #include "Matlab.h"
 
@@ -462,8 +462,163 @@ struct TestMatlab : CppUnit::TestFixture {
         Matrix<int> x;
         Matrix<int> y;
         Matrix<int> z;
-        x = linsolve(x, y);
-        CPPUNIT_ASSERT(x.eq(z));
+
+        try {
+            x = linsolve(x, y);
+            CPPUNIT_ASSERT(false);
+        } catch (Matrix<int>::DimensionException &e) {
+            CPPUNIT_ASSERT(true);
+        }
+    }
+
+    void test_linsolve_1() {
+        float a[] = { 1., 2., 4., 3. };
+        float b[] = { 3., 2. };
+        float x[] = { -1., 2. };
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 2, 2);
+        Matrix<float> bb = Matrix<float>::makeMatrix(b, 2, 1);
+        Matrix<float> xx = Matrix<float>::makeMatrix(x, 2, 1);
+
+        aa = linsolve(aa, bb);
+        CPPUNIT_ASSERT(aa.eq(xx));
+    }
+
+    void test_linsolve_2() {
+        float a[] = { 5, 2, 3, 4, 5, 6, 7, 8, 9 };
+        float b[] = { 4, 7, 14 };
+        float x[] = { 1, 5, -3 - (2. / 3) };
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 3, 3);
+        Matrix<float> bb = Matrix<float>::makeMatrix(b, 3, 1);
+        Matrix<float> xx = Matrix<float>::makeMatrix(x, 3, 1);
+
+        aa = linsolve(aa, bb);
+
+        typedef Matrix<float>::size_type size_type;
+
+        for (size_type i = 0; i < aa.size(); ++i) {
+            for (size_type j = 0; j < aa[0].size(); ++j) {
+                CPPUNIT_ASSERT(aa[i][j]-xx[i][j] < 1e-5);
+            }
+        }
+    }
+
+    void test_linsolve_3() {
+        float a[] = { 5, 2, 3, 4, 5, 6, 7, 8, 9 };
+        float b[] = { 4, 7, 14, 4, 7, 14, 4, 7, 14, };
+        float x[] = { 1, 5, -3 - (2. / 3), 1, 5, -3 - (2. / 3), 1, 5, -3
+                - (2. / 3) };
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 3, 3);
+        Matrix<float> bb = transpose(Matrix<float>::makeMatrix(b, 3, 3));
+        Matrix<float> xx = transpose(Matrix<float>::makeMatrix(x, 3, 3));
+
+        aa = linsolve(aa, bb);
+
+        typedef Matrix<float>::size_type size_type;
+
+        for (size_type i = 0; i < aa.size(); ++i) {
+            for (size_type j = 0; j < aa[0].size(); ++j) {
+                CPPUNIT_ASSERT(aa[i][j]-xx[i][j] < 1e-5);
+            }
+        }
+    }
+
+    /**
+     * What if the matrix is singular?
+     */
+    void test_linsolve_4() {
+        float a[] = { 0, 2, 3, 0, 1, 2, 0, 3, 4 };
+        float b[] = { 1, 2, 3 };
+        float x[] = { 0, 0, 0 };  // TODO what?
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 3, 3);
+        Matrix<float> bb = transpose(Matrix<float>::makeMatrix(b, 3, 3));
+        Matrix<float> xx = transpose(Matrix<float>::makeMatrix(x, 3, 3));
+
+        try {
+            aa = linsolve(aa, bb);
+            CPPUNIT_ASSERT(false);
+        } catch (std::invalid_argument &e) {
+            CPPUNIT_ASSERT(true);
+        }
+    }
+
+    /**
+     * What if the number of equations is smaller than the number of variables?
+     */
+    void test_linsolve_5() {
+        float a[] = { 1, 2, 3, 4, 5, 6 };
+        float b[] = { 8, 9 };
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 2, 3);
+        Matrix<float> bb = transpose(Matrix<float>::makeMatrix(b, 1, 2));
+
+        Matrix<float> tt = linsolve(aa, bb);
+
+        Matrix<float> variance = (ones<Matrix<float> >(2, 1) * 1e-5);
+        Matrix<float> xx = aa * tt;
+        Matrix<bool> results = (bb - xx) < variance;
+        Matrix<bool> expected = ones<Matrix<bool> >(2, 1);
+
+        CPPUNIT_ASSERT(results.eq(expected));
+    }
+
+    /**
+     * What if there are more equations than variables?
+     * In this test, the last equation is redundant and we have found a solution.
+     */
+    void test_linsolve_6() {
+        float a[] = { 1, 2, 2, 3, 3, 4 };
+        float b[] = { 3, 4, 5 };
+        float z[] = { -1, 2 };
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 3, 2);
+        Matrix<float> bb = Matrix<float>::makeMatrix(b, 3, 1);
+        Matrix<float> zz = Matrix<float>::makeMatrix(z, 2, 1);
+
+        aa = linsolve(aa, bb);
+
+        CPPUNIT_ASSERT(aa.eq(zz));
+    }
+
+    /**
+     * What if there are more equations than variables?
+     * In this test, the last equation conflicts and is false, yielding no solutions.
+     */
+    void test_linsolve_7() {
+        float a[] = { 1, 2, 2, 3, 3, 4 };
+        float b[] = { 3, 4, 21434 };
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 3, 2);
+        Matrix<float> bb = Matrix<float>::makeMatrix(b, 3, 1);
+
+        try {
+            aa = linsolve(aa, bb);
+            CPPUNIT_ASSERT(false);
+        } catch (std::invalid_argument &e) {
+            CPPUNIT_ASSERT(true);
+        }
+    }
+
+    /**
+     * What if there are more equations than variables?
+     * In this test, the last equation conflicts and is false, yielding no solutions.
+     */
+    void test_linsolve_8() {
+        float a[] = { 1, 2, 2, 3, 3, 4, 1, 2 };
+        float b[] = { 3, 4, 21434, 3 };
+
+        Matrix<float> aa = Matrix<float>::makeMatrix(a, 4, 2);
+        Matrix<float> bb = Matrix<float>::makeMatrix(b, 4, 1);
+
+        try {
+            aa = linsolve(aa, bb);
+            CPPUNIT_ASSERT(false);
+        } catch (std::invalid_argument &e) {
+            CPPUNIT_ASSERT(true);
+        }
     }
 
     // ---------
@@ -765,7 +920,15 @@ CPPUNIT_TEST_SUITE(TestMatlab);
         CPPUNIT_TEST(test_eye_3);
         CPPUNIT_TEST(test_eye_4);
         CPPUNIT_TEST(test_eye_5);
-        CPPUNIT_TEST(test_linsolve);  // TODO
+        CPPUNIT_TEST(test_linsolve);
+        CPPUNIT_TEST(test_linsolve_1);
+        CPPUNIT_TEST(test_linsolve_2);
+        CPPUNIT_TEST(test_linsolve_3);
+        CPPUNIT_TEST(test_linsolve_4);
+        CPPUNIT_TEST(test_linsolve_5);
+        CPPUNIT_TEST(test_linsolve_6);
+        CPPUNIT_TEST(test_linsolve_7);
+        CPPUNIT_TEST(test_linsolve_8);
         CPPUNIT_TEST(test_ones_1);
         CPPUNIT_TEST(test_ones_2);
         CPPUNIT_TEST(test_ones_3);
