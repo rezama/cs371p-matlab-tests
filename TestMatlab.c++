@@ -37,12 +37,27 @@ struct TestMatlab : CppUnit::TestFixture {
         x = horzcat(x, y);
         CPPUNIT_ASSERT(x.eq(z));}
 
+    void test_horzcat2 () {
+        Matrix<int> x(1,1,1);
+        Matrix<int> y(1,1,2);
+        x = horzcat(x, y);
+        CPPUNIT_ASSERT(x[0][0] = 1);
+        CPPUNIT_ASSERT(x[0][1] = 2);}
+
+
     void test_vertcat () {
         Matrix<int> x;
         Matrix<int> y;
         Matrix<int> z;
         x = vertcat(x, y);
         CPPUNIT_ASSERT(x.eq(z));}
+
+    void test_vertcat2 () {
+        Matrix<int> x(1,1,1);
+        Matrix<int> y(1,1,2);
+        x = vertcat(x, y);
+        CPPUNIT_ASSERT(x[0][0] = 1);
+        CPPUNIT_ASSERT(x[1][0] = 2);}
 
     // ---------
     // test_diag
@@ -151,8 +166,11 @@ struct TestMatlab : CppUnit::TestFixture {
     // -----
 
     CPPUNIT_TEST_SUITE(TestMatlab);
+
     CPPUNIT_TEST(test_horzcat);
+    CPPUNIT_TEST(test_horzcat2);
     CPPUNIT_TEST(test_vertcat);
+    CPPUNIT_TEST(test_vertcat2);/*
     CPPUNIT_TEST(test_diag);
     CPPUNIT_TEST(test_eye);
     CPPUNIT_TEST(test_linsolve);
@@ -161,7 +179,8 @@ struct TestMatlab : CppUnit::TestFixture {
     CPPUNIT_TEST(test_transpose);
     CPPUNIT_TEST(test_tril);
     CPPUNIT_TEST(test_triu);
-    CPPUNIT_TEST(test_zeros);
+    CPPUNIT_TEST(test_zeros);*/
+
     CPPUNIT_TEST_SUITE_END();};
 
 // ----
