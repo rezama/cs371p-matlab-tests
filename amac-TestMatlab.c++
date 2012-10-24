@@ -836,7 +836,7 @@ struct TestMatlab : CppUnit::TestFixture {
             CPPUNIT_ASSERT(y.eq(x));
         }
         catch (...) {
-            CPPUNIT_ASSERT(true);
+            CPPUNIT_ASSERT(false);
         }
     }
 
@@ -853,7 +853,7 @@ struct TestMatlab : CppUnit::TestFixture {
             CPPUNIT_ASSERT(y.eq(x));
         }
         catch (...) {
-            CPPUNIT_ASSERT(true);
+            CPPUNIT_ASSERT(false);
         }
     }
 
@@ -869,7 +869,7 @@ struct TestMatlab : CppUnit::TestFixture {
             CPPUNIT_ASSERT(y.eq(x));
         }
         catch (...) {
-            CPPUNIT_ASSERT(true);
+            CPPUNIT_ASSERT(false);
         }
     }
 
@@ -885,7 +885,7 @@ struct TestMatlab : CppUnit::TestFixture {
             CPPUNIT_ASSERT(y.eq(x));
         }
         catch (...) {
-            CPPUNIT_ASSERT(true);
+            CPPUNIT_ASSERT(false);
         }
     }
 
