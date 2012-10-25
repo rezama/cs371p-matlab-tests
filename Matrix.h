@@ -47,7 +47,10 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+          * Returns a matrix with a 0 or 1 for each element if it is not equal or is repectively
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with 1 or 0 for whether each element was equal or not
          */
         friend Matrix<bool> operator == (const Matrix& lhs, const Matrix& rhs) 
         {
@@ -71,7 +74,10 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+          * Returns a matrix with a 1 or 0 for each element if it is not equal or is repectively
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with 0 or 1 for whether each element was equal or not
          */
         friend Matrix<bool> operator != (const Matrix& lhs, const Matrix& rhs) 
         {
@@ -96,7 +102,10 @@ class Matrix {
         // ----------
 
         /**
-         * <your documentation>
+          * Returns a matrix with a 1 if less than, 0 otherwise, for each spot in the matrix
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with 1 or 0 for whether each element was less than or not
          */
         friend Matrix<bool> operator < (const Matrix& lhs, const Matrix& rhs) 
         {
@@ -120,7 +129,10 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+          * Returns a matrix with a 1 if less or equal to, 0 otherwise, for each spot in the matrix
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with 1 or 0 for whether each element was less or equal to or not
          */
         friend Matrix<bool> operator <= (const Matrix& lhs, const Matrix& rhs) 
         {
@@ -144,7 +156,10 @@ class Matrix {
         // ----------
 
         /**
-         * <your documentation>
+          * Returns a matrix with a 1 if greater than, 0 otherwise, for each spot in the matrix
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with 1 or 0 for whether each element was greater than or not
          */
         friend Matrix<bool> operator > (const Matrix& lhs, const Matrix& rhs) 
         {
@@ -168,7 +183,10 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+          * Returns a matrix with a 1 if greater than or equal to, 0 otherwise, for each spot in the matrix
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with 1 or 0 for whether each element was greater or equal to or not
          */
         friend Matrix<bool> operator >= (const Matrix& lhs, const Matrix& rhs) 
         {
@@ -192,7 +210,10 @@ class Matrix {
         // ----------
 
         /**
-         * <your documentation>
+          * Adds a scalar to every element in the matrix
+          * @param x matrix lhs
+          * @param y T rhs
+          * @return Matrix with each element added to rhs
          */
         friend Matrix operator + (Matrix lhs, const T& rhs) 
         {
@@ -200,7 +221,10 @@ class Matrix {
         }
 
         /**
-         * <your documentation>
+          * Adds each element in matrix rhs to every corresponding element in the matrix lhs
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with each element of rhs added to the corresponding element in lhs
          */
         friend Matrix operator + (Matrix lhs, const Matrix& rhs) {
             return lhs += rhs;}
@@ -210,13 +234,19 @@ class Matrix {
         // ----------
 
         /**
-         * <your documentation>
+          * Subtracts a scalar from every element in the matrix
+          * @param x matrix lhs
+          * @param y T rhs
+          * @return Matrix with rhs subtracted from each element
          */
         friend Matrix operator - (Matrix lhs, const T& rhs) {
             return lhs -= rhs;}
 
         /**
-         * <your documentation>
+          * Subtracts each element in matrix rhs from every corresponding element in the matrix lhs
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with each element of rhs subtracted from the corresponding element in lhs
          */
         friend Matrix operator - (Matrix lhs, const Matrix& rhs) {
             return lhs -= rhs;}
@@ -226,13 +256,19 @@ class Matrix {
         // ----------
 
         /**
-         * <your documentation>
+          * Multiplies each element in a matrix with a scalar
+          * @param x matrix lhs
+          * @param y T rhs
+          * @return Matrix with rhs multiplied with each element
          */
         friend Matrix operator * (Matrix lhs, const T& rhs) {
             return lhs *= rhs;}
 
         /**
-         * <your documentation>
+          * Multiplies each element in matrix rhs with every corresponding element in the matrix lhs
+          * @param x matrix lhs
+          * @param y matrix rhs
+          * @return Matrix with each element of rhs multiplied with the corresponding element in lhs
          */
         friend Matrix operator * (Matrix lhs, const Matrix& rhs) {
             return lhs *= rhs;}
@@ -263,7 +299,10 @@ class Matrix {
         // ------------
 
         /**
-         * <your documentation>
+         * Constructor for Matrix takes m, n, and v to make an MxN matrix filled with v.
+          * @param r row size
+          * @param c column size
+          * @param v element
          */
         Matrix (size_type r = 0, size_type c = 0, const T& v = T())
         {
@@ -292,7 +331,9 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+         * Gets the element at i
+         * @param i index
+         * @return element at i
          */
         reference operator [] (size_type i) 
         {
@@ -307,7 +348,9 @@ class Matrix {
         }
 
         /**
-         * <your documentation>
+         * Gets the element at i
+         * @param i index
+         * @return element at i
          */
         const_reference operator [] (size_type i) const 
         {
@@ -319,7 +362,9 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+         * Takes scalar rhs and adds it to the current matrix
+         * @param rhs scalar
+         * @return Current matrix with rhs added to each element
          */
         Matrix& operator += (const T& rhs) 
         {
@@ -327,8 +372,8 @@ class Matrix {
             if (size() == 0)
                 return *this;
 
-            for (size_type i = 0; i < rhs.size(); i++)
-                for (size_type j = 0; j < rhs[0].size(); j++)
+            for (size_type i = 0; i < _m.size(); i++)
+                for (size_type j = 0; j < _m[0].size(); j++)
                 {
                         _m[i][j] += rhs;
                 }
@@ -336,7 +381,9 @@ class Matrix {
         }
 
         /**
-         * <your documentation>
+         * Takes Matrix rhs and adds it to the current matrix
+         * @param rhs matrix
+         * @return Current matrix with each corresponding rhs element added to each element
          */
         Matrix& operator += (const Matrix& rhs) 
         {
@@ -357,7 +404,9 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+         * Takes scalar rhs and subtracts it from the current matrix
+         * @param rhs scalar
+         * @return Current matrix with rhs subtracted from each element
          */
         Matrix& operator -= (const T& rhs) 
         {
@@ -374,7 +423,9 @@ class Matrix {
         }
 
         /**
-         * <your documentation>
+         * Takes Matrix rhs and subtracts it from the current matrix
+         * @param rhs matrix
+         * @return Current matrix with each corresponding rhs element subtracted from each element
          */
         Matrix& operator -= (const Matrix& rhs) 
         {
@@ -395,7 +446,9 @@ class Matrix {
         // -----------
 
         /**
-         * <your documentation>
+         * Takes scalar rhs and multiplies it with the current matrix
+         * @param rhs scalar
+         * @return Current matrix with rhs multiplied with each element
          */
         Matrix& operator *= (const T& rhs) 
         {
@@ -412,7 +465,9 @@ class Matrix {
         }
 
         /**
-         * <your documentation>
+         * Takes Matrix rhs and multiplies it with the current matrix
+         * @param rhs matrix
+         * @return Current matrix with each corresponding rhs element multiplied with each element
          */
         Matrix& operator *= (const Matrix& rhs) 
         {
@@ -446,7 +501,9 @@ class Matrix {
         // --
 
         /**
-         * <your documentation>
+         * Checks to see if each element of the current matrix equals each corresponding element of mat
+         * @param mat Matrix
+         * @return Boolean for whether or not the elements of the matrices are the same
          */
         bool eq (const Matrix& mat) const 
         {
@@ -471,13 +528,15 @@ class Matrix {
         // -----
 
         /**
-         * <your documentation>
+          * Returns an iterator at the beginning of the matrix.
+          * @return Iterator pointing to the first element of the matrix
          */
         iterator begin () {
             return _m.begin();}
 
         /**
-         * <your documentation>
+          * Returns a constant iterator at the beginning of the matrix.
+          * @return Iterator pointing to the first element of the matrix
          */
         const_iterator begin () const {
             return const_cast<Matrix*>(this)->begin();}
@@ -487,13 +546,15 @@ class Matrix {
         // ---
 
         /**
-         * <your documentation>
+          * Returns an iterator at the end of the matrix.
+          * @return Iterator pointing to the last element of the matrix
          */
         iterator end () {
             return _m.end();}
 
         /**
-         * <your documentation>
+          * Returns a constant iterator at the end of the matrix.
+          * @return Iterator pointing to the last element of the matrix
          */
         const_iterator end () const {
             return const_cast<Matrix*>(this)->end();}
@@ -503,7 +564,8 @@ class Matrix {
         // ----
 
         /**
-         * <your documentation>
+         * Returns the number of rows in the matrix
+         * @return size_type of the number of rows in the matrix
          */
         size_type size () const 
         {
