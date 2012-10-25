@@ -1,0 +1,28 @@
+==5780== Memcheck, a memory error detector
+==5780== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==5780== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==5780== Command: TestMatlab
+==5780== 
+TestMatlab.c++
+.........................................
+
+
+OK (41 tests)
+
+
+Done.
+==5780== 
+==5780== HEAP SUMMARY:
+==5780==     in use at exit: 122,880 bytes in 6 blocks
+==5780==   total heap usage: 1,920 allocs, 1,914 frees, 261,050 bytes allocated
+==5780== 
+==5780== LEAK SUMMARY:
+==5780==    definitely lost: 0 bytes in 0 blocks
+==5780==    indirectly lost: 0 bytes in 0 blocks
+==5780==      possibly lost: 0 bytes in 0 blocks
+==5780==    still reachable: 122,880 bytes in 6 blocks
+==5780==         suppressed: 0 bytes in 0 blocks
+==5780== Rerun with --leak-check=full to see details of leaked memory
+==5780== 
+==5780== For counts of detected and suppressed errors, rerun with: -v
+==5780== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
