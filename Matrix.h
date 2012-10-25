@@ -122,9 +122,22 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix<bool> operator <= (const Matrix& lhs, const Matrix& rhs) {
+        friend Matrix<bool> operator <= (const Matrix& lhs, const Matrix& rhs) 
+        {
             // <your code>
-            return true;}
+            Matrix<bool> dummy;
+            if (lhs.size() == 0 && rhs.size() == 0)
+                return dummy;
+            Matrix<bool> result(lhs.size(), lhs[0].size(), false);
+            for (size_type i = 0; i < lhs.size(); i++)
+                for (size_type j = 0; j < lhs[0].size(); j++)
+                {
+                    if (lhs[i][j] <= rhs[i][j])
+                        result[i][j] = true;
+                }
+
+            return result;
+        }
 
         // ----------
         // operator >
@@ -133,9 +146,22 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix<bool> operator > (const Matrix& lhs, const Matrix& rhs) {
+        friend Matrix<bool> operator > (const Matrix& lhs, const Matrix& rhs) 
+        {
             // <your code>
-            return true;}
+            Matrix<bool> dummy;
+            if (lhs.size() == 0 && rhs.size() == 0)
+                return dummy;
+            Matrix<bool> result(lhs.size(), lhs[0].size(), false);
+            for (size_type i = 0; i < lhs.size(); i++)
+                for (size_type j = 0; j < lhs[0].size(); j++)
+                {
+                    if (lhs[i][j] > rhs[i][j])
+                        result[i][j] = true;
+                }
+
+            return result;
+        }
 
         // -----------
         // operator >=
@@ -144,9 +170,22 @@ class Matrix {
         /**
          * <your documentation>
          */
-        friend Matrix<bool> operator >= (const Matrix& lhs, const Matrix& rhs) {
+        friend Matrix<bool> operator >= (const Matrix& lhs, const Matrix& rhs) 
+        {
             // <your code>
-            return true;}
+            Matrix<bool> dummy;
+            if (lhs.size() == 0 && rhs.size() == 0)
+                return dummy;
+            Matrix<bool> result(lhs.size(), lhs[0].size(), false);
+            for (size_type i = 0; i < lhs.size(); i++)
+                for (size_type j = 0; j < lhs[0].size(); j++)
+                {
+                    if (lhs[i][j] >= rhs[i][j])
+                        result[i][j] = true;
+                }
+
+            return result;
+        }
 
         // ----------
         // operator +
@@ -212,9 +251,11 @@ class Matrix {
         /**
          * <your documentation>
          */
-        bool valid () const {
+        bool valid () const 
+        {
             // <your code>
-            return true;}
+            return true;
+        }
 
     public:
         // ------------
@@ -286,8 +327,8 @@ class Matrix {
             if (size() == 0)
                 return *this;
 
-            for (size_type i = 0; i < _m.size(); i++)
-                for (size_type j = 0; j < _m[0].size(); j++)
+            for (size_type i = 0; i < rhs.size(); i++)
+                for (size_type j = 0; j < rhs[0].size(); j++)
                 {
                         _m[i][j] += rhs;
                 }
