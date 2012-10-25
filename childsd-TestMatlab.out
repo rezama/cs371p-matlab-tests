@@ -1,0 +1,30 @@
+==20901== Memcheck, a memory error detector
+==20901== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==20901== Using Valgrind-3.8.0 and LibVEX; rerun with -h for copyright info
+==20901== Command: ./TestMatlab.app
+==20901== 
+--20901-- ./TestMatlab.app:
+--20901-- dSYM directory is missing; consider using --dsymutil=yes
+TestMatlab.c++
+..............................................
+
+
+OK (46 tests)
+
+
+Done.
+==20901== 
+==20901== HEAP SUMMARY:
+==20901==     in use at exit: 17,341 bytes in 39 blocks
+==20901==   total heap usage: 11,070 allocs, 11,031 frees, 32,861,717 bytes allocated
+==20901== 
+==20901== LEAK SUMMARY:
+==20901==    definitely lost: 0 bytes in 0 blocks
+==20901==    indirectly lost: 0 bytes in 0 blocks
+==20901==      possibly lost: 0 bytes in 0 blocks
+==20901==    still reachable: 17,341 bytes in 39 blocks
+==20901==         suppressed: 0 bytes in 0 blocks
+==20901== Rerun with --leak-check=full to see details of leaked memory
+==20901== 
+==20901== For counts of detected and suppressed errors, rerun with: -v
+==20901== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

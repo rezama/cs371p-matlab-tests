@@ -1,0 +1,28 @@
+==18993== Memcheck, a memory error detector
+==18993== Copyright (C) 2002-2011, and GNU GPL'd, by Julian Seward et al.
+==18993== Using Valgrind-3.7.0 and LibVEX; rerun with -h for copyright info
+==18993== Command: ./TestMatrix.app
+==18993== 
+TestMatrix.c++
+........................................................................
+
+
+OK (72 tests)
+
+
+Done.
+==18993== 
+==18993== HEAP SUMMARY:
+==18993==     in use at exit: 122,880 bytes in 6 blocks
+==18993==   total heap usage: 12,385 allocs, 12,379 frees, 959,740 bytes allocated
+==18993== 
+==18993== LEAK SUMMARY:
+==18993==    definitely lost: 0 bytes in 0 blocks
+==18993==    indirectly lost: 0 bytes in 0 blocks
+==18993==      possibly lost: 0 bytes in 0 blocks
+==18993==    still reachable: 122,880 bytes in 6 blocks
+==18993==         suppressed: 0 bytes in 0 blocks
+==18993== Rerun with --leak-check=full to see details of leaked memory
+==18993== 
+==18993== For counts of detected and suppressed errors, rerun with: -v
+==18993== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 4 from 4)
